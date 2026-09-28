@@ -5,8 +5,8 @@ Text for the Devpost form. Fill in the links in angle brackets before submitting
 - Project: NVera
 - Tagline: Describe a scene, get a 3D model you can actually use.
 - Track: Best Apps and Agents (also entering the Tavily prize)
-- Demo: <demo URL> (open to everyone, no sign-up; a search takes about a minute)
-- Code: <GitHub URL> (MIT)
+- Demo: https://nvera.onrender.com (open to everyone, no sign-up; the first load can take up to a minute while the free server wakes up, and a search takes about a minute)
+- Code: https://github.com/renad-tech/NVera (MIT)
 - Video: <YouTube URL>
 - New project: yes, started during the submission period (September 2026)
 
