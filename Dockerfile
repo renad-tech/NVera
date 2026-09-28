@@ -20,9 +20,9 @@ COPY scripts/ scripts/
 # Sketchfab UID → Objaverse index (~13 MB), so Sketchfab winners can be downloaded from Objaverse
 RUN python scripts/build_objaverse_index.py
 COPY --from=web /app/frontend/dist frontend/dist
-# Hugging Face Spaces runs the container as a non-root user, so these must be writable
+# Writable even if the host runs the container as a non-root user
 RUN mkdir -p models memory logs && chmod 777 models memory logs
 
 EXPOSE 8000
-# Hosts like Render/Railway/Hugging Face set $PORT; default to 8000 locally.
+# Render sets $PORT; default to 8000 locally.
 CMD ["sh", "-c", "uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
