@@ -70,7 +70,10 @@ So the public site runs with `NVERA_SKETCHFAB_DOWNLOAD=0` (set in `render.yaml`)
 Free-plan notes: the service sleeps after ~15 minutes idle (the first visit then takes ~1 minute to
 wake up - open it before a demo), and downloaded models / memory reset on each redeploy.
 
-### Alternative: Hugging Face Spaces (free, more memory)
+### Alternative: Hugging Face Spaces (needs PRO)
+
+Since mid-2026, Docker Spaces need a Hugging Face PRO account ($9/month). In return the Space
+doesn't sleep and has more memory.
 
 The Space only holds two files from [docs/huggingface/](huggingface/): a README with the Space
 config and a Dockerfile that clones this repo from GitHub and builds it. So nothing is pushed to
