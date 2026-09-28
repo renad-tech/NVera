@@ -147,8 +147,8 @@ author and license, and exported GLBs carry the same info in their glTF `extras`
 
 ## Acknowledgments
 
-Built with help from Claude Code (Anthropic) for debugging code and docs. UI started from
-a Figma design.
+Built with Claude Code (Anthropic): I designed, planned and tested NVera; Claude wrote most of the
+code, especially the backend, and helped with the GitHub files. UI started from a Figma design.
 
 ## License
 
