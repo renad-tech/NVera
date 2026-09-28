@@ -1,0 +1,30 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Secret values are NOT stored here: "sync: false" makes Render ask for them in its dashboard.
+services:
+  - type: web
+    name: nvera
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      # API keys (entered in the Render dashboard, never committed)
+      - key: NEBIUS_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: SKETCHFAB_API_TOKEN
+        sync: false
+      - key: POLY_PIZZA_API_KEY
+        sync: false
+      # Safe defaults
+      - key: NVERA_SEARCHES_PER_HOUR
+        value: "10"
+      - key: NVERA_DAILY_BUDGET_USD
+        value: "0.5"
+      - key: NVERA_DAILY_SEARCHES
+        value: "30"
+      - key: NEBIUS_BUDGET_USD
+        value: "25"
+      # Sketchfab API terms: public apps may not download with the owner's token
+      - key: NVERA_SKETCHFAB_DOWNLOAD
+        value: "0"
