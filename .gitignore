@@ -1,0 +1,35 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+frontend/dist/
+
+# Generated 3D models (downloaded / edited at runtime)
+models/
+
+# Local scratch
+.tmp_make/
+*.make
+
+# Backend logs
+logs/
+
+# Search history, ratings and budget ledger (personal)
+memory/
+
+# Built from Objaverse at install time (scripts/build_objaverse_index.py)
+backend/data/objaverse_index.bin
+
+# Personal planning notes (kept locally, not published)
+docs/PROJECT-BRIEF.md
+
+# Local Claude Code app settings
+.claude/
