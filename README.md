@@ -148,7 +148,7 @@ author and license, and exported GLBs carry the same info in their glTF `extras`
 ## Acknowledgments
 
 Built with help from Claude Code (Anthropic) for debugging code and docs. UI started from
- Figma design.
+a Figma design.
 
 ## License
 
