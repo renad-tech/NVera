@@ -71,8 +71,11 @@ design started in Figma Make) with a react-three-fiber viewer: isometric camera,
 contact shadows, bloom, and procedural materials drawn in the browser. Edited models are exported with
 three.js's GLTFExporter. Each agent's instructions are a markdown file in backend/prompts.
 
-I built NVera with help from Claude Code (Anthropic's AI coding assistant) for writing and debugging
-code and docs. The idea, the product decisions and the testing are mine.
+I'm still a beginner at programming, but that didn't stop me from building this. I used Claude Code
+(Anthropic's AI coding assistant) as my partner. I came up with the idea, did the research, planned
+the whole system, split it into agents and steps, chose the models and sources, and decided how every
+part should behave. I also tested it and kept pushing it until the results were actually good. Claude
+wrote most of the code, especially the backend, and helped me prepare the GitHub files.
 
 ## Making it reliable
 
