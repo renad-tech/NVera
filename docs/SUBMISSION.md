@@ -36,7 +36,7 @@ monochrome, and optional reference pictures. Then NVera:
    three.js examples and the open web in parallel.
 4. Has a vision model compare every candidate's preview with the real photos.
 5. Picks the best one and shows an honest score, a checklist of what it has and what's missing, and a
-   "How NVera decided" panel with every agent, model, time and cost.
+   "How NVera decided" panel with every step, model, time and cost.
 6. Lets you restyle it with presets or by asking ("cardboard at sunset"), then download a GLB with
    the creator and license written into the file.
 
@@ -69,11 +69,11 @@ to pull direct .glb links out of pages.
 The backend is FastAPI and streams progress to the UI. The frontend is React, Vite and Tailwind (the
 design started in Figma Make) with a react-three-fiber viewer: isometric camera, studio lighting,
 contact shadows, bloom, and procedural materials drawn in the browser. Edited models are exported with
-three.js's GLTFExporter. Each agent's instructions are a markdown file in backend/prompts.
+three.js's GLTFExporter. Each AI step's instructions are a markdown file in backend/prompts.
 
 I'm still a beginner at programming, but that didn't stop me from building this. I used Claude Code
 (Anthropic's AI coding assistant) as my partner. I came up with the idea, did the research, planned
-the whole system, split it into agents and steps, chose the models and sources, and decided how every
+the whole system, split it into steps, chose the models and sources, and decided how every
 part should behave. I also tested it and kept pushing it until the results were actually good. Claude
 wrote most of the code, especially the backend, and helped me prepare the GitHub files.
 
@@ -115,7 +115,7 @@ one scene, and moving the deployment to Nebius Serverless Endpoints.
 ## Feedback on Token Factory and NVIDIA models
 
 What worked well:
-- One OpenAI-compatible endpoint for several open models made it easy to give each agent the right
+- One OpenAI-compatible endpoint for several open models made it easy to give each step the right
   model and change it from .env.
 - The Nemotron 3 lineup covered every text job: Ultra for the analysis, Super for the decision, Nano
   for quick edits.
