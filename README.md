@@ -7,7 +7,7 @@ Render's free plan, so the first visit can take up to a minute while the server 
 
 NVera doesn't generate 3D models. There are already millions of good free ones out there, the hard
 part is finding the right one. You type what you need ("a cozy café with wooden tables and plants"),
-and a small team of AI agents searches Poly Haven, Sketchfab, Poly Pizza, the Smithsonian and the
+and an agentic AI workflow built from several models searches Poly Haven, Sketchfab, Poly Pizza, the Smithsonian and the
 open web, looks at every candidate, and gives you the best match with an honest score. Then you can
 restyle it (cardboard, paper, clay, neon...) and download it as a GLB.
 
@@ -27,7 +27,7 @@ you get should really be what you asked for, not just something with a matching 
 - Searches six sources at once and has a vision model compare the previews side by side
 - Uses Tavily to look up what the real thing looks like, so models are judged against real photos
 - An honest score plus a checklist of what the model has and what it's missing
-- A "How NVera decided" panel: every agent, model, time and cost for that search
+- A "How NVera decided" panel: every step, model, time and cost for that search
 - Restyle with presets or by asking ("make it cardboard at sunset"): 10 materials, grounds, day/sunset/night, fog
 - Download the edited GLB (creator and license are written into the file) or save a PNG of the view
 - Learns from 👍/👎: past ratings are fed back into similar searches
@@ -44,11 +44,15 @@ request -> Nemotron 3 Ultra   split into what to find (shape) and how it should 
         -> download           GLB cached in models/, falls back to the next model if it fails
 ```
 
+NVera is an agentic workflow: the steps run in a fixed order, each on the model that fits it, and
+the workflow makes a few decisions on its own. It searches again with broader words when the best
+score is under 6/10, moves to the next model when a download fails, and uses past 👍/👎 on similar searches.
+
 "A city made of cardboard" doesn't exist as a model, so NVera finds a city and applies the cardboard
 look itself. The judges are told about the look, so they only score the shape.
 
-Each agent's instructions live in [backend/prompts/](backend/prompts/). They're plain markdown,
-so changing how an agent behaves doesn't need a code change.
+Each AI step's instructions live in [backend/prompts/](backend/prompts/). They're plain markdown,
+so changing how a step behaves doesn't need a code change.
 
 ### NVIDIA Nemotron on Nebius Token Factory
 
@@ -117,10 +121,10 @@ hourly limit and a daily cap on spend and searches keep anyone from draining the
 
 ```
 backend/
-  prompts/      instructions for each agent
+  prompts/      instructions for each AI step
   agents/       scene analyzer, finder, vision judge, quality inspector, restyler, downloader
   sources/      polyhaven, sketchfab, objaverse, polypizza, smithsonian, threejs, web
-  pipeline.py   runs the agents and streams progress to the UI
+  pipeline.py   runs the workflow and streams progress to the UI
   main.py       FastAPI app
 frontend/src/
   components/Finder.tsx       search page
