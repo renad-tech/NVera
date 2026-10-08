@@ -2,8 +2,7 @@
 
 Describe a scene, get a 3D model you can actually use.
 
-**Live demo: [nvera.onrender.com](https://nvera.onrender.com)** (open to everyone, no sign-up. It runs on
-Render's free plan, so the first visit can take up to a minute while the server wakes up.)
+**Live demo: [nvera.onrender.com](https://nvera.onrender.com)** (open to everyone, no sign-up)
 
 NVera doesn't generate 3D models. There are already millions of good free ones out there, the hard
 part is finding the right one. You type what you need ("a cozy café with wooden tables and plants"),
@@ -112,7 +111,7 @@ Other useful scripts:
 ## Deploying
 
 The backend serves the built frontend too, so it's one Docker container and one URL. The live
-demo runs on Render (free plan, built straight from this repo). Steps are in [docs/DEPLOY.md](docs/DEPLOY.md).
+demo runs on Render, built straight from this repo. Steps are in [docs/DEPLOY.md](docs/DEPLOY.md).
 
 Keys only go in the host's environment variables. The demo is open to everyone; a per-visitor
 hourly limit and a daily cap on spend and searches keep anyone from draining the credits.
