@@ -5,6 +5,9 @@ images or per-item license, so the judges treat these cautiously and the app lin
 Smithsonian Open Access for terms.
 """
 
+import html
+import re
+
 import requests
 
 from backend.utils.llm import Usage
@@ -22,7 +25,8 @@ def search(query: str, usage: Usage, limit: int = 2) -> list[dict]:
         c = row.get("content") or {}
         if c.get("usage") != "Web3D" or not c.get("uri"):
             continue
-        pkg = packages.setdefault(c["model_url"], {"title": row.get("title"), "files": {}})
+        title = html.unescape(re.sub(r"<[^>]+>", "", row.get("title") or "")).strip()  # titles carry <em> tags
+        pkg = packages.setdefault(c["model_url"], {"title": title, "files": {}})
         pkg["files"][c.get("quality")] = c["uri"]
 
     out = []
