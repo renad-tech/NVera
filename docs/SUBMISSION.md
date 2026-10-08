@@ -1,13 +1,10 @@
-# NVera: submission notes
-
-Text for the Devpost form. Fill in the links in angle brackets before submitting.
+# NVera: Devpost submission
 
 - Project: NVera
 - Tagline: Describe a scene, get a 3D model you can actually use.
 - Track: Best Apps and Agents (also entering the Tavily prize)
-- Demo: https://nvera.onrender.com (open to everyone, no sign-up; the first load can take up to a minute while the free server wakes up, and a search takes about a minute)
+- Demo: https://nvera.onrender.com (open to everyone, no sign-up)
 - Code: https://github.com/renad-tech/NVera (MIT)
-- Video: <YouTube URL>
 - New project: yes, started during the submission period (September 2026)
 
 ## Inspiration
@@ -130,22 +127,3 @@ What could be better:
 - Turning "thinking" off differs between models. A documented switch, and capability flags in
   /v1/models (thinking, vision, JSON mode), would save time.
 - A per-request cost header would make cost tracking exact.
-
-## Video script (about 2:50, must stay under 3:00)
-
-No copyrighted music and no third-party logos. Start with the result.
-
-| Time | On screen | Voice-over |
-|---|---|---|
-| 0:00 | A cardboard city rotating, click Night so it glows | "This city is made of cardboard. AI found it, judged it and restyled it in under a minute." |
-| 0:10 | Several library tabs, an empty-room model, a license page | "Finding the right free 3D model takes hours: five sites, empty shells, unclear licenses. NVera finds it for you." |
-| 0:30 | Settings strip, type "a city made of cardboard and paper" | "Describe the scene in any language and check three settings." |
-| 0:45 | Live progress | "Nemotron 3 Ultra splits it into a city to find and cardboard to apply. Tavily looks up the real thing, and NVera searches six sources at once." |
-| 1:15 | Result card, score, checklist, Tavily panel | "Kimi compares every preview with real photos, and Nemotron 3 Super picks the winner and scores it honestly." |
-| 1:40 | Open "How NVera decided" | "You can see every step, which model, how long and how much. This search cost about two cents." |
-| 2:00 | Cardboard, Sunset, then type "warm colors and fog" | "Restyle with one click or just ask. Nemotron 3 Nano does it for a hundredth of a cent." |
-| 2:20 | Download the GLB, open it in Blender or three.js | "Download a GLB with the creator's credit inside, ready for any engine." |
-| 2:35 | 👎 "no furniture inside", then the searches-left chip | "Ratings teach it for next time. NVera runs on Nebius Token Factory and NVIDIA Nemotron. Describe it, and NVera will find it." |
-
-Open the demo a minute before recording (free hosting may be asleep) and do one practice search so the
-models are cached.

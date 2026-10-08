@@ -1,7 +1,7 @@
-# Deploying NVera (GitHub + a public link)
+# Deploying NVera
 
 NVera runs as one service: FastAPI serves the API *and* the website, so there is a single URL
-that works on any device (phone, laptop, judges' computers).
+that works on any device.
 
 ## Where the API keys live
 
@@ -12,9 +12,6 @@ that works on any device (phone, laptop, judges' computers).
 | Docker image | ❌ never - `.dockerignore` excludes `.env` |
 | The host (Render…) | ✅ as environment variables in its dashboard |
 | The browser | ❌ never - the browser only talks to `/api`; the server calls Nebius/Tavily |
-
-Before going public: keys that were ever pasted into a chat, email or screenshot should be
-rotated (new key in the provider's dashboard -> update `.env` and the host).
 
 ## Protecting your credits
 
@@ -43,36 +40,16 @@ So the public site runs with `NVERA_SKETCHFAB_DOWNLOAD=0` (set in `render.yaml`)
 - Locally you are the account owner, so `.env` can use `NVERA_SKETCHFAB_DOWNLOAD=1`.
 - Every exported GLB carries the creator, license and source link in its glTF `extras`.
 
-"Log in with Sketchfab" (OAuth) can re-enable downloads for everyone once Sketchfab registers the app.
-
-## 1 · Put the code on GitHub
-
-1. Create an empty repository on github.com (no README, no .gitignore) - e.g. `NVera`.
-2. In the project folder:
-
-   ```bash
-   git remote add origin https://github.com/<your-username>/NVera.git
-   git push -u origin master
-   ```
-
-   Windows opens a GitHub sign-in window the first time.
-3. Check on github.com that there is no `.env` file - only `.env.example`.
-
-## 2 · Deploy on Render (free)
+## Deploy on Render
 
 1. Sign in at [render.com](https://render.com) with GitHub.
 2. New -> Blueprint -> pick the `NVera` repo. Render reads `render.yaml`.
 3. Fill in the secret values it asks for:
    `NEBIUS_API_KEY`, `TAVILY_API_KEY`, `SKETCHFAB_API_TOKEN`, `POLY_PIZZA_API_KEY`.
-4. Apply. The first build takes ~5 minutes. You get a link like `https://nvera.onrender.com`.
-5. Open it on your phone and search once.
+4. Add `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` (Upstash Redis) so ratings and the
+   usage ledger are kept across restarts.
+5. Apply. You get a link like `https://nvera.onrender.com`.
 
-Render's free plan wipes local files on every restart or deploy. Add `UPSTASH_REDIS_REST_URL` and
-`UPSTASH_REDIS_REST_TOKEN` (free Upstash Redis) so ratings and the usage ledger are kept.
-
-Free-plan notes: the service sleeps after ~15 minutes idle (the first visit then takes ~1 minute to
-wake up - open it before a demo), and downloaded models / memory reset on each redeploy.
-
-## 3 · Updating the live site
+## Updating the live site
 
 Commit and `git push` - Render rebuilds automatically.
