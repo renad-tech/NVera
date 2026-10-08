@@ -67,6 +67,9 @@ So the public site runs with `NVERA_SKETCHFAB_DOWNLOAD=0` (set in `render.yaml`)
 4. Apply. The first build takes ~5 minutes. You get a link like `https://nvera.onrender.com`.
 5. Open it on your phone and search once.
 
+Render's free plan wipes local files on every restart or deploy. Add `UPSTASH_REDIS_REST_URL` and
+`UPSTASH_REDIS_REST_TOKEN` (free Upstash Redis) so ratings and the usage ledger are kept.
+
 Free-plan notes: the service sleeps after ~15 minutes idle (the first visit then takes ~1 minute to
 wake up - open it before a demo), and downloaded models / memory reset on each redeploy.
 
