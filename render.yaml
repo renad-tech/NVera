@@ -16,6 +16,11 @@ services:
         sync: false
       - key: POLY_PIZZA_API_KEY
         sync: false
+      # Upstash Redis: keeps ratings and the usage ledger across restarts
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
       # Safe defaults
       - key: NVERA_SEARCHES_PER_HOUR
         value: "10"
