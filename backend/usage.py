@@ -1,6 +1,6 @@
 """How much budget is left - shown in the app as "≈ N searches left".
 
-Nebius: Token Factory has no balance API, so NVera keeps its own ledger (memory/usage.json),
+Nebius: Token Factory has no balance API, so NVera keeps its own ledger (Upstash, or memory/usage.json),
 seeded once from logs/nvera.log. It is an estimate - the Nebius console has the exact number.
 Tavily: read live from Tavily's /usage endpoint (free).
 """
@@ -12,7 +12,7 @@ import time
 
 import requests
 
-from backend import config
+from backend import config, kv
 from backend.utils.llm import Usage
 
 LEDGER = config.ROOT / "memory" / "usage.json"
@@ -40,12 +40,26 @@ def _seed_from_log() -> dict:
     return {"nebius_usd": round(spent, 4), "searches": searches, "restyles": restyles, "since": time.time()}
 
 
-def _load() -> dict:
-    if LEDGER.exists():
-        return json.loads(LEDGER.read_text(encoding="utf-8"))
-    data = _seed_from_log()
+KV_KEY = "nvera:usage"
+
+
+def _save(data: dict) -> None:
+    if kv.enabled:
+        kv.cmd("SET", KV_KEY, json.dumps(data))
+        return
     LEDGER.parent.mkdir(exist_ok=True)
     LEDGER.write_text(json.dumps(data), encoding="utf-8")
+
+
+def _load() -> dict:
+    if kv.enabled:
+        raw = kv.cmd("GET", KV_KEY)
+        if raw:
+            return json.loads(raw)
+    elif LEDGER.exists():
+        return json.loads(LEDGER.read_text(encoding="utf-8"))
+    data = _seed_from_log()
+    _save(data)
     return data
 
 
@@ -65,7 +79,7 @@ def add(usage: Usage, kind: str) -> None:
             counts = data.setdefault("day_searches", {})
             counts[today] = counts.get(today, 0) + 1
             data["day_searches"] = dict(sorted(counts.items())[-30:])
-        LEDGER.write_text(json.dumps(data), encoding="utf-8")
+        _save(data)
 
 
 def spent_today() -> float:

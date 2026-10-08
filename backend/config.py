@@ -26,6 +26,9 @@ POLY_PIZZA_API_KEY = os.getenv("POLY_PIZZA_API_KEY", "")
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY", "")
 TAVILY_API_URL = os.getenv("TAVILY_API_URL", "https://api.tavily.com/search")
 SKETCHFAB_API_TOKEN = os.getenv("SKETCHFAB_API_TOKEN", "")
+# Optional Upstash Redis: keeps memory and the usage ledger across restarts (see backend/kv.py).
+UPSTASH_URL = os.getenv("UPSTASH_REDIS_REST_URL", "").strip().strip('"')
+UPSTASH_TOKEN = os.getenv("UPSTASH_REDIS_REST_TOKEN", "").strip().strip('"')
 
 # NVERA_MOCK=1 -> no paid API calls; returns a model already in models/.
 MOCK = os.getenv("NVERA_MOCK", "0") == "1"

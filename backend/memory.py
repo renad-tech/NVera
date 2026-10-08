@@ -4,7 +4,8 @@ Not model training - just experience:
   • Nemotron gets "lessons" from similar past requests (queries users liked, complaints to avoid).
   • Kimi and the Quality Inspector see if a candidate was rated before, and why.
 
-Stored as JSON lines in memory/history.jsonl (git-ignored). Mock runs go to a separate file.
+Stored in Upstash Redis when it's configured (survives restarts on free hosts), otherwise as JSON
+lines in memory/history.jsonl (git-ignored). Mock runs are kept separately.
 """
 
 import json
@@ -13,26 +14,33 @@ import threading
 import time
 import uuid
 
-from backend import config
+from backend import config, kv
 
 MEMORY_DIR = config.ROOT / "memory"
 MEMORY_DIR.mkdir(exist_ok=True)
 FILE = MEMORY_DIR / ("mock-history.jsonl" if config.MOCK else "history.jsonl")
+KV_KEY = "nvera:mock-memory" if config.MOCK else "nvera:memory"
 
 _lock = threading.Lock()
 MIN_SIMILARITY = 0.2
 
 
 def _append(event: dict) -> None:
+    if kv.enabled:
+        kv.cmd("RPUSH", KV_KEY, json.dumps(event, ensure_ascii=False))
+        return
     with _lock, open(FILE, "a", encoding="utf-8") as f:
         f.write(json.dumps(event, ensure_ascii=False) + "\n")
 
 
 def _events() -> list[dict]:
-    if not FILE.exists():
+    if kv.enabled:
+        lines = kv.cmd("LRANGE", KV_KEY, 0, -1) or []
+    elif not FILE.exists():
         return []
-    with _lock:
-        lines = FILE.read_text(encoding="utf-8").splitlines()
+    else:
+        with _lock:
+            lines = FILE.read_text(encoding="utf-8").splitlines()
     out = []
     for line in lines:
         try:
