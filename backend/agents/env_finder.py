@@ -12,6 +12,7 @@ Round 2 - only if the judges found nothing good (see pipeline.py): broader queri
 """
 
 import logging
+import re
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 
@@ -71,18 +72,37 @@ def _bucket(c: dict) -> str:
     return c["source"]
 
 
-def _select(candidates: list[dict], n: int = MAX_FOR_JUDGE) -> list[dict]:
-    """Best mix for the judge: Tavily seats, then per-source quotas (by popularity), then fill up."""
+GENERIC = {"and", "the", "with", "for", "environment", "scene", "model", "free", "pack", "asset"}
+
+
+def _words(text: str) -> set[str]:
+    return {w.rstrip("s") for w in re.findall(r"[a-z]+", text.lower()) if len(w) > 2 and w not in GENERIC}
+
+
+def _select(candidates: list[dict], words: set[str], n: int = MAX_FOR_JUDGE) -> list[dict]:
+    """Best mix for the judge: Tavily seats, then per-source quotas, then fill up.
+
+    Inside each source, models whose name or tags match more of the search words go first
+    (then popularity), and models that match none are left out when there are enough others.
+    """
     candidates = [mark_editable(c) for c in candidates]
+
+    def hits(c: dict) -> int:
+        return len(words & _words(" ".join([c.get("name") or "", *(c.get("tags") or [])])))
+
+    relevant = [c for c in candidates if hits(c)]
+    if len(relevant) >= ENOUGH:
+        candidates = relevant + [c for c in candidates if c.get("found_by") == "tavily" and c not in relevant]
+    candidates.sort(key=lambda c: (-hits(c), -(c.get("likes") or 0)))
+
     by_bucket: dict[str, list[dict]] = {}
-    for c in sorted(candidates, key=lambda c: -(c.get("likes") or 0)):
+    for c in candidates:
         by_bucket.setdefault(_bucket(c), []).append(c)
 
     picked = [c for c in candidates if c.get("found_by") == "tavily"][:TAVILY_SEATS]
     for bucket, quota in QUOTAS:
         picked += [c for c in by_bucket.get(bucket, []) if c not in picked][:quota]
     rest = [c for c in candidates if c not in picked and _bucket(c) != "sketchfab-view"]
-    rest.sort(key=lambda c: -(c.get("likes") or 0))
     return (picked + rest)[:n]
 
 
@@ -100,8 +120,10 @@ def find(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: se
         (threejs.search, query),
     ], usage), exclude)
 
-    if len(found) < ENOUGH and alts:
-        on_stage(f"Trying broader searches: {', '.join(alts)}")
+    # Long scene queries ("forest river mountain environment") often only match one part, so the
+    # broader queries always run too. They only hit the free libraries, so they cost nothing.
+    if alts:
+        on_stage(f"Also searching: {', '.join(alts)}")
         jobs = [(fn, a) for a in alts for fn in (sketchfab.search_api, polypizza.search, polyhaven.search)]
         _merge(found, _run(jobs, usage), exclude)
 
@@ -109,7 +131,7 @@ def find(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: se
         on_stage("Searching the open web")
         _merge(found, _run([(web.search, query)], usage), exclude)
 
-    return _select(list(found.values()))
+    return _select(list(found.values()), _words(" ".join([query, *alts])))
 
 
 def find_more(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: set[str]) -> list[dict]:
@@ -120,4 +142,4 @@ def find_more(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclud
     jobs = [(fn, a) for a in alts for fn in (sketchfab.search_api, polypizza.search, polyhaven.search)]
     jobs.append((tavily_libraries.search, alts[0]))  # one Tavily credit
     _merge(found, _run(jobs, usage), exclude)
-    return _select(list(found.values()), n=6)
+    return _select(list(found.values()), _words(" ".join(alts)), n=6)
