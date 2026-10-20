@@ -158,11 +158,12 @@ def run(prompt: str, settings: SearchSettings) -> Iterator[dict]:
         )
         ranked = [best] + [_with_judge_verdict(c) for c in candidates if c["id"] != best["id"]]
 
-        # The best match wins even when it's view-only on Sketchfab (the page then offers the best
-        # editable model as a one-click alternative). A downloadable model only takes its place on a tie.
+        # View-only Sketchfab is the last resort: any downloadable model that's good enough (6+) wins,
+        # and otherwise the view-only one still has to be clearly better (2+ points).
         if not _downloadable(best):
             editable = next((c for c in ranked[1:] if _downloadable(c)), None)
-            if editable and editable["quality"]["score"] >= best["quality"]["score"]:
+            score = editable["quality"]["score"] if editable else 0
+            if editable and (score >= config.MIN_SCORE or score >= best["quality"]["score"] - 1):
                 log.info("preferring editable %s over view-only %s", editable["id"], best["id"])
                 ranked = [editable] + [c for c in ranked if c is not editable]
 
