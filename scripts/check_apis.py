@@ -23,9 +23,10 @@ MODELS = {
     "Nano": os.getenv("RESTYLER_MODEL", "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B"),
     "Super": os.getenv("INSPECTOR_MODEL", "nvidia/nemotron-3-super-120b-a12b"),
     "Hermes": os.getenv("HERMES_MODEL", "NousResearch/Hermes-4-405B"),
-    "Kimi": os.getenv("JUDGE_MODEL", "moonshotai/Kimi-K2.6"),
+    "Super VL": os.getenv("JUDGE_MODEL", "nvidia/Nemotron-3.5-Super-VL"),
+    "Kimi": os.getenv("JUDGE_FALLBACK_MODEL", "moonshotai/Kimi-K2.6"),
 }
-# Same switch the vision judge uses - if Kimi still "thinks", the OK never arrives.
+# Same switch the vision judge uses - if a model still "thinks", the OK never arrives.
 NO_THINKING = {"chat_template_kwargs": {"thinking": False, "enable_thinking": False}}
 
 
@@ -35,7 +36,7 @@ def check_model(client: OpenAI, label: str, model: str) -> bool:
             model=model,
             messages=[{"role": "user", "content": "Reply with exactly: OK"}],
             max_tokens=200,
-            extra_body=NO_THINKING if label in ("Kimi", "Nano", "Super") else None,
+            extra_body=NO_THINKING if label in ("Kimi", "Nano", "Super", "Super VL") else None,
         )
         reply = (r.choices[0].message.content or "").strip()
         print(f"  ✅ {label:<9} {model}  ->  {reply[:60]!r}  ({r.usage.total_tokens} tokens)")
