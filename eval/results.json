@@ -1,0 +1,722 @@
+[
+ {
+  "prompt": "a wooden chair",
+  "size": "small",
+  "seconds": 52.0,
+  "cost": 0.00793,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:dining_chair_02",
+   "name": "Dining Chair 02",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/dining_chair_02.png?width=512&height=512&format=webp&v=efb5662a",
+   "url": "https://polyhaven.com/a/dining_chair_02",
+   "score": 7
+  },
+  "nvera": {
+   "id": "polypizza:13AL0KYItKD",
+   "name": "Chair",
+   "source": "polypizza",
+   "thumbnail": "https://static.poly.pizza/423381ef-268e-45a6-91b8-273ad071c986.webp",
+   "url": "https://poly.pizza/m/13AL0KYItKD",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a red sports car",
+  "size": "small",
+  "seconds": 61.4,
+  "cost": 0.00449,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:6df5f81aab234b03816a2c61b9aee8b7",
+   "name": "Red Sport Car",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/6df5f81aab234b03816a2c61b9aee8b7/thumbnails/913ff956f1334e79acd09a4edc23edc9/cb55f1dbcd8e4662927a59963db4112a.jpeg",
+   "url": "https://sketchfab.com/3d-models/red-sport-car-6df5f81aab234b03816a2c61b9aee8b7",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:6df5f81aab234b03816a2c61b9aee8b7",
+   "name": "Red Sport Car",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/6df5f81aab234b03816a2c61b9aee8b7/thumbnails/913ff956f1334e79acd09a4edc23edc9/cb55f1dbcd8e4662927a59963db4112a.jpeg",
+   "url": "https://sketchfab.com/3d-models/red-sport-car-6df5f81aab234b03816a2c61b9aee8b7",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "an old oak tree",
+  "size": "small",
+  "seconds": 24.5,
+  "cost": 0.00365,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:3eb292974d63479d958a3374116f8011",
+   "name": "Old oak tree in the grounds of West Dean Gardens",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/3eb292974d63479d958a3374116f8011/thumbnails/0058def161364992a9b7a30515ac6c63/8cf08743498f4e318bf46a1ac4202991.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-3eb292974d63479d958a3374116f8011",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:e97c98ab3ed0466f8ea08e479472e948",
+   "name": "Oak Tree - Savernake forest",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/e97c98ab3ed0466f8ea08e479472e948/thumbnails/dd754183997b49ffa695dd1d7c7efb01/46a956768ed64a838d03a9803807fb4e.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-e97c98ab3ed0466f8ea08e479472e948",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a medieval sword",
+  "size": "small",
+  "seconds": 43.4,
+  "cost": 0.00379,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:a2dafe4b801c41e9844cc67f18665651",
+   "name": "Medieval Sword",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/a2dafe4b801c41e9844cc67f18665651/thumbnails/d6befc9efa5441f48c83a07d5b769b75/eb1e9cd83efa4292bc300a56d17c3218.jpeg",
+   "url": "https://sketchfab.com/3d-models/medieval-sword-a2dafe4b801c41e9844cc67f18665651",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:099eeab53e9943f9a2fe0810c4be52f3",
+   "name": "Imperator Longsword (Oakeshott Type XVIIIa)",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/099eeab53e9943f9a2fe0810c4be52f3/thumbnails/e556987ae1aa418685e9680b2b90557d/23f1b915769d4d9d8b2b67f60a77280c.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-099eeab53e9943f9a2fe0810c4be52f3",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a desk lamp",
+  "size": "small",
+  "seconds": 40.8,
+  "cost": 0.00396,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:desk_lamp_arm_01",
+   "name": "Desk Lamp Arm 01",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/desk_lamp_arm_01.png?width=512&height=512&format=webp&v=59bbc8e7",
+   "url": "https://polyhaven.com/a/desk_lamp_arm_01",
+   "score": 4
+  },
+  "nvera": {
+   "id": "sketchfab:2450ec6d3ec84341b28931fe67e063ce",
+   "name": "Desk lamp",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/2450ec6d3ec84341b28931fe67e063ce/thumbnails/f5ef6fed2ece416ca10107038349b259/dbf6ab29c4b24e7d94ba09b204d50907.jpeg",
+   "url": "https://sketchfab.com/3d-models/desk-lamp-2450ec6d3ec84341b28931fe67e063ce",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a sailing ship",
+  "size": "small",
+  "seconds": 25.6,
+  "cost": 0.00375,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:ac65e0168e8c423db9c9fdc71397c84e",
+   "name": "Sailing Ship Model",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/ac65e0168e8c423db9c9fdc71397c84e/thumbnails/01c205ad8d3b42188479ab84d00d9d58/720x405.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-ac65e0168e8c423db9c9fdc71397c84e",
+   "score": 7
+  },
+  "nvera": {
+   "id": "polyhaven:dutch_ship_large_02",
+   "name": "Dutch Ship Large 02",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/dutch_ship_large_02.png?width=512&height=512&format=webp&v=888cf2e8",
+   "url": "https://polyhaven.com/a/dutch_ship_large_02",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a cactus in a pot",
+  "size": "small",
+  "seconds": 31.7,
+  "cost": 0.00542,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:4dfdf2971fca42a292de7ac6bf97a26b",
+   "name": "[FREE] Cereus Peruvianus - Potted Cactus",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/4dfdf2971fca42a292de7ac6bf97a26b/thumbnails/674b4f0f2f1544fc8c269483d321fac0/6eca9860ea4749379864aff3767a752a.jpeg",
+   "url": "https://sketchfab.com/3d-models/free-cereus-peruvianus-potted-cactus-4dfdf2971fca42a292de7ac6bf97a26b",
+   "score": 9
+  },
+  "nvera": {
+   "id": "sketchfab:4dfdf2971fca42a292de7ac6bf97a26b",
+   "name": "[FREE] Cereus Peruvianus - Potted Cactus",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/4dfdf2971fca42a292de7ac6bf97a26b/thumbnails/674b4f0f2f1544fc8c269483d321fac0/6eca9860ea4749379864aff3767a752a.jpeg",
+   "url": "https://sketchfab.com/3d-models/free-cereus-peruvianus-potted-cactus-4dfdf2971fca42a292de7ac6bf97a26b",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a vintage radio",
+  "size": "small",
+  "seconds": 31.0,
+  "cost": 0.00378,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:26fb0de1015d4570bac28cd8b1fb0a62",
+   "name": "VINTAGE RETRO RADIO",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/26fb0de1015d4570bac28cd8b1fb0a62/thumbnails/0f93554f616b4fe0895294bfa9dd2a37/885da032b7404368887bffb4e57b2fa7.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-26fb0de1015d4570bac28cd8b1fb0a62",
+   "score": 6
+  },
+  "nvera": {
+   "id": "sketchfab:d9dc1aa63c6a43af8d830192e6f91b13",
+   "name": "Vintage Montgomery Ward & Co. Airline Radio",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/d9dc1aa63c6a43af8d830192e6f91b13/thumbnails/249cc297b91b448db3836edd39868c81/67754d01c3b54b08b215023ed3bf1b81.jpeg",
+   "url": "https://sketchfab.com/3d-models/vintage-montgomery-ward-co-airline-radio-d9dc1aa63c6a43af8d830192e6f91b13",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a fire hydrant",
+  "size": "small",
+  "seconds": 30.0,
+  "cost": 0.00393,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:fire_hydrant",
+   "name": "Fire Hydrant",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/fire_hydrant.png?width=512&height=512&format=webp&v=8923912c",
+   "url": "https://polyhaven.com/a/fire_hydrant",
+   "score": 9
+  },
+  "nvera": {
+   "id": "polyhaven:fire_hydrant",
+   "name": "Fire Hydrant",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/fire_hydrant.png?width=512&height=512&format=webp&v=8923912c",
+   "url": "https://polyhaven.com/a/fire_hydrant",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a small wooden cabin",
+  "size": "medium",
+  "seconds": 30.5,
+  "cost": 0.00547,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:9e9195dc0a6f44b2baea0def83602dc7",
+   "name": "House - Stone Cabin - Modern Log Cabin 03",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/9e9195dc0a6f44b2baea0def83602dc7/thumbnails/11d118c004ae4db89bb06c9fb32bdc81/11fe857d61e8415887ee2f7a5f835d84.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-9e9195dc0a6f44b2baea0def83602dc7",
+   "score": 2
+  },
+  "nvera": {
+   "id": "sketchfab:90b3e4f6f3fc42d89c70e78b87958370",
+   "name": "Log Cabin",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/90b3e4f6f3fc42d89c70e78b87958370/thumbnails/20b077d9af1e489887868131d3f3cf50/ab3e8788d96e4f21924a25a17e87fc17.jpeg",
+   "url": "https://sketchfab.com/3d-models/log-cabin-90b3e4f6f3fc42d89c70e78b87958370",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a cozy cafe with wooden tables and plants",
+  "size": "medium",
+  "seconds": 33.1,
+  "cost": 0.00447,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:3e70ea39900848d0951e1b47954361eb",
+   "name": "Cozy Morning in a Cafe | 3D Editor Challenge",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/3e70ea39900848d0951e1b47954361eb/thumbnails/00f464f6dd8a4928a348a91f53e1dba8/de376467e05d4221a971a2a48e5b6aa3.jpeg",
+   "url": "https://sketchfab.com/3d-models/cozy-morning-in-a-cafe-3d-editor-challenge-3e70ea39900848d0951e1b47954361eb",
+   "score": 6
+  },
+  "nvera": {
+   "id": "sketchfab:fb7c75dae56a43d5aa75d23e17c63d03",
+   "name": "Cosy Coffee Interior – Warm & Stylized Scene",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/fb7c75dae56a43d5aa75d23e17c63d03/thumbnails/08d117c3f6ae4e37a795d2ac57c3c5ca/563be9276d0a494da43bb7a854b0c45d.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-fb7c75dae56a43d5aa75d23e17c63d03",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a classroom with desks",
+  "size": "medium",
+  "seconds": 37.5,
+  "cost": 0.00444,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:SchoolDesk_01",
+   "name": "School Desk 01",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/SchoolDesk_01.png?width=512&height=512&format=webp&v=52c372f5",
+   "url": "https://polyhaven.com/a/SchoolDesk_01",
+   "score": 2
+  },
+  "nvera": {
+   "id": "sketchfab:7f981d3e0b6445108d684abf3f2fd4ab",
+   "name": "Classroom",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/7f981d3e0b6445108d684abf3f2fd4ab/thumbnails/081efd9996e949b897cf9ca27e91fb72/bf517a3594a348b5ab75ba1dc6f06f46.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-7f981d3e0b6445108d684abf3f2fd4ab",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a kitchen with an island",
+  "size": "medium",
+  "seconds": 41.9,
+  "cost": 0.0039,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:5379013c54d54be5904b59d2f5854d9c",
+   "name": "Modern kitchen interior with island dining tabl",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/5379013c54d54be5904b59d2f5854d9c/thumbnails/c1bb53cc197b424f9ce8dce3f9cfd3ac/40476a33c381437584dda383bdaee0d1.jpeg",
+   "url": "https://sketchfab.com/3d-models/modern-kitchen-interior-with-island-dining-tabl-5379013c54d54be5904b59d2f5854d9c",
+   "score": 4
+  },
+  "nvera": {
+   "id": "sketchfab:82c35500aec347d2938ff7943900486f",
+   "name": "Modern Kitchen",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/82c35500aec347d2938ff7943900486f/thumbnails/805793b45f304de0a875a38fc2a3ff91/feb286145fe847bca21b4bee3944ec5b.jpeg",
+   "url": "https://sketchfab.com/3d-models/modern-kitchen-82c35500aec347d2938ff7943900486f",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a library with tall bookshelves",
+  "size": "medium",
+  "seconds": 38.2,
+  "cost": 0.00539,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:853cf9b43fa54b75be9f934155dc9ea3",
+   "name": "Modern Library Interior  High-Quality 3D Model",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/853cf9b43fa54b75be9f934155dc9ea3/thumbnails/a0b5e5db53dd4be4a742c49a85f2f71e/3b3cd2cb4aa94512be26c791e60951e9.jpeg",
+   "url": "https://sketchfab.com/3d-models/modern-library-interior-high-quality-3d-model-853cf9b43fa54b75be9f934155dc9ea3",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:853cf9b43fa54b75be9f934155dc9ea3",
+   "name": "Modern Library Interior  High-Quality 3D Model",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/853cf9b43fa54b75be9f934155dc9ea3/thumbnails/a0b5e5db53dd4be4a742c49a85f2f71e/3b3cd2cb4aa94512be26c791e60951e9.jpeg",
+   "url": "https://sketchfab.com/3d-models/modern-library-interior-high-quality-3d-model-853cf9b43fa54b75be9f934155dc9ea3",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a gym with weights",
+  "size": "medium",
+  "seconds": 34.2,
+  "cost": 0.00433,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:f4655b9b3204474db9dc32b2ecb52efe",
+   "name": "Dumbbell / Gym Equipment - Гантель (Low poly)",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/f4655b9b3204474db9dc32b2ecb52efe/thumbnails/3602de1f44cc495e997f478781000f3c/ba4c15307ebb423dbc5aba7ad6042968.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-f4655b9b3204474db9dc32b2ecb52efe",
+   "score": 2
+  },
+  "nvera": {
+   "id": "sketchfab:d9df83c02b414d0784163319686ea726",
+   "name": "SFSM Final003",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/d9df83c02b414d0784163319686ea726/thumbnails/355d847212bc4dc6b7bfcc47fe71c0b2/9a1e4a2e848143938154079f16782a7e.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-d9df83c02b414d0784163319686ea726",
+   "score": 6
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a bedroom with a bed and a desk",
+  "size": "medium",
+  "seconds": 23.2,
+  "cost": 0.00401,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:4f3db3cb57bd4bce886f7b9a13273a2f",
+   "name": "Minimalistic Modern Bedroom",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/4f3db3cb57bd4bce886f7b9a13273a2f/thumbnails/68b0b716971443de9bd11d769896279e/c73ad47ee47749b59eacc1102aa4bb44.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-4f3db3cb57bd4bce886f7b9a13273a2f",
+   "score": 5
+  },
+  "nvera": {
+   "id": "polypizza:8NsrLwbXhfl",
+   "name": "Jason's Isometric Room",
+   "source": "polypizza",
+   "thumbnail": "https://static.poly.pizza/0a0449e6-92f8-4e14-b64a-0e4db0ef6090.webp",
+   "url": "https://poly.pizza/m/8NsrLwbXhfl",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a gas station",
+  "size": "medium",
+  "seconds": 49.1,
+  "cost": 0.00402,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:d665542c4deb431bada506922e60e5f6",
+   "name": "Fallout: Poseidon Energy Gas Station",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/d665542c4deb431bada506922e60e5f6/thumbnails/f192ad1de14d415a8b72aa2ed918ca2c/0d4b914f84b0499592069347c6bbfebf.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-d665542c4deb431bada506922e60e5f6",
+   "score": 3
+  },
+  "nvera": {
+   "id": "sketchfab:1a0feafb044148e585bfe588afe617b8",
+   "name": "Small Red Gas Station",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/1a0feafb044148e585bfe588afe617b8/thumbnails/db492bf17bf74d48a9886039239a9208/896329f3dbd94d558965ec4d870fd0ae.jpeg",
+   "url": "https://sketchfab.com/3d-models/small-red-gas-station-1a0feafb044148e585bfe588afe617b8",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a medieval castle on a hill",
+  "size": "large",
+  "seconds": 24.4,
+  "cost": 0.00379,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:large_castle_door",
+   "name": "Large Castle Door",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/large_castle_door.png?width=512&height=512&format=webp&v=7ca4b2e3",
+   "url": "https://polyhaven.com/a/large_castle_door",
+   "score": 1
+  },
+  "nvera": {
+   "id": "sketchfab:b1ccedf0aa8148819fd48a66a71055e2",
+   "name": "Low Poly Hilltop Castle",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/b1ccedf0aa8148819fd48a66a71055e2/thumbnails/5fd4300cf7d245d784e5cabcc62bf511/009e2012276342b49b06ea31dd2dc06f.jpeg",
+   "url": "https://sketchfab.com/3d-models/low-poly-hilltop-castle-b1ccedf0aa8148819fd48a66a71055e2",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a forest with a waterfall",
+  "size": "large",
+  "seconds": 65.9,
+  "cost": 0.00474,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:536a2db7384145c9aff9bfdfe2aeb5ab",
+   "name": "Low Poly Scene Forest Waterfall",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/536a2db7384145c9aff9bfdfe2aeb5ab/thumbnails/8b959759bf5f41c2a4f6ffccfb606f22/c59bb050ecdc4b0d9685f715cc44a2b0.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-536a2db7384145c9aff9bfdfe2aeb5ab",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:536a2db7384145c9aff9bfdfe2aeb5ab",
+   "name": "Low Poly Scene Forest Waterfall",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/536a2db7384145c9aff9bfdfe2aeb5ab/thumbnails/8b959759bf5f41c2a4f6ffccfb606f22/c59bb050ecdc4b0d9685f715cc44a2b0.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-536a2db7384145c9aff9bfdfe2aeb5ab",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a cyberpunk city street at night",
+  "size": "large",
+  "seconds": 42.6,
+  "cost": 0.00467,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:3f24e5c5bf924f46b30d9a392afa9624",
+   "name": "Cyberpunk City",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/3f24e5c5bf924f46b30d9a392afa9624/thumbnails/7aeaab28ddc54de496bdaebfc2672943/bc36890b6a1a48b48fa3d09b63a92e12.jpeg",
+   "url": "https://sketchfab.com/3d-models/cyberpunk-city-3f24e5c5bf924f46b30d9a392afa9624",
+   "score": 9
+  },
+  "nvera": {
+   "id": "sketchfab:3f24e5c5bf924f46b30d9a392afa9624",
+   "name": "Cyberpunk City",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/3f24e5c5bf924f46b30d9a392afa9624/thumbnails/7aeaab28ddc54de496bdaebfc2672943/bc36890b6a1a48b48fa3d09b63a92e12.jpeg",
+   "url": "https://sketchfab.com/3d-models/cyberpunk-city-3f24e5c5bf924f46b30d9a392afa9624",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a desert with dunes and rocks",
+  "size": "large",
+  "seconds": 40.6,
+  "cost": 0.00383,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:58bd8be249944f1b892a52eb52e06024",
+   "name": "Dune - Arrakis (WIP)",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/58bd8be249944f1b892a52eb52e06024/thumbnails/3bca7cce85f445eaa25b772eb9f2f7b7/3f36fe1b2d0d48ff8a12aac2b3f3e812.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-58bd8be249944f1b892a52eb52e06024",
+   "score": 4
+  },
+  "nvera": {
+   "id": "sketchfab:e910cf21108246e19b3141dd15f6c05d",
+   "name": "Star dunes, Algeria",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/e910cf21108246e19b3141dd15f6c05d/thumbnails/bdfb734dc64d495b94912fe47f2eb3ef/404c494c99a74b41b95a3dfdb280a16b.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-e910cf21108246e19b3141dd15f6c05d",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a japanese temple",
+  "size": "large",
+  "seconds": 39.8,
+  "cost": 0.00454,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:a210febbec4f454dbd0df1d142be06bc",
+   "name": "Japanese Temple",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/a210febbec4f454dbd0df1d142be06bc/thumbnails/46b0c2c495c341aa8e2975589a4dce34/93c42ed701454d6cb3a994257cd8029c.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-a210febbec4f454dbd0df1d142be06bc",
+   "score": 4
+  },
+  "nvera": {
+   "id": "sketchfab:976033be8d5e415da0709291375da4f1",
+   "name": "Japanese Shrine - Traditional Temple",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/976033be8d5e415da0709291375da4f1/thumbnails/e1f934976d3448ea8406463337b961bd/8537a93fb1f544fe828936b8a4d2976d.jpeg",
+   "url": "https://sketchfab.com/3d-models/japanese-shrine-traditional-temple-976033be8d5e415da0709291375da4f1",
+   "score": 6
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a small island with palm trees",
+  "size": "large",
+  "seconds": 52.7,
+  "cost": 0.00462,
+  "credits": 2,
+  "title": {
+   "id": "polyhaven:island_tree_02",
+   "name": "Island Tree 02",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/island_tree_02.png?width=512&height=512&format=webp&v=854bdc1f",
+   "url": "https://polyhaven.com/a/island_tree_02",
+   "score": 4
+  },
+  "nvera": {
+   "id": "sketchfab:69059d6628c74d8a9dd1f63f65eed224",
+   "name": "Tropical Island",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/69059d6628c74d8a9dd1f63f65eed224/thumbnails/3649b654b524474d9360688a53f1641e/3288a39aa365439299569098e95008ca.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-69059d6628c74d8a9dd1f63f65eed224",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a snowy mountain village",
+  "size": "large",
+  "seconds": 35.4,
+  "cost": 0.00409,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:b479bf3d2458416183985f41059d45d4",
+   "name": "Mountain village",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/b479bf3d2458416183985f41059d45d4/thumbnails/96272d6b84cd4364b22b720afe33f226/d542389ca271457d8e53e192c7b7897e.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-b479bf3d2458416183985f41059d45d4",
+   "score": 6
+  },
+  "nvera": {
+   "id": "sketchfab:5abe872cf7e34afb8d1c2b47cc7b4fe6",
+   "name": "Low Poly Winter Village",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/5abe872cf7e34afb8d1c2b47cc7b4fe6/thumbnails/9a8e87eb1fec4810a2413fe45e2fa98a/a84793d14cc146739320501c29d314ac.jpeg",
+   "url": "https://sketchfab.com/3d-models/low-poly-winter-village-5abe872cf7e34afb8d1c2b47cc7b4fe6",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a city made of cardboard",
+  "size": "large",
+  "seconds": 49.7,
+  "cost": 0.00406,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:b0035b8713b048bb8ddf311ee67c28c8",
+   "name": "Low Poly Night City Building Skyline",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/b0035b8713b048bb8ddf311ee67c28c8/thumbnails/a19e1d19ac684868b6d45ae8c1ee84c4/826cb92d2a574140bf8d6c36034d17d5.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-b0035b8713b048bb8ddf311ee67c28c8",
+   "score": 6
+  },
+  "nvera": {
+   "id": "sketchfab:9f0343aff4814b758dc6e905aba5b5e0",
+   "name": "Asian Themed Low Poly Night City Buildings",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/9f0343aff4814b758dc6e905aba5b5e0/thumbnails/7d95f1042ac142e1b13c06985df69191/7780ba34830f424580f994dce6ed4eeb.jpeg",
+   "url": "https://sketchfab.com/3d-models/asian-themed-low-poly-night-city-buildings-9f0343aff4814b758dc6e905aba5b5e0",
+   "score": 6
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a low poly farm with animals",
+  "size": "large",
+  "seconds": 41.7,
+  "cost": 0.00469,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:0e91a96ca6ee44569cf94972e30b5be4",
+   "name": "Low Poly Farm V2",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/0e91a96ca6ee44569cf94972e30b5be4/thumbnails/4e8aa62d456b48abb76c7cd579efd1f0/a068e2094c7f4b8382fe14dfdfe47fa9.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-0e91a96ca6ee44569cf94972e30b5be4",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:0e91a96ca6ee44569cf94972e30b5be4",
+   "name": "Low Poly Farm V2",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/0e91a96ca6ee44569cf94972e30b5be4/thumbnails/4e8aa62d456b48abb76c7cd579efd1f0/a068e2094c7f4b8382fe14dfdfe47fa9.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-0e91a96ca6ee44569cf94972e30b5be4",
+   "score": 8
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a space station",
+  "size": "large",
+  "seconds": 58.8,
+  "cost": 0.00409,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:a7a6ad10261149cab31aa394bfcf8940",
+   "name": "Space Station 3",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/a7a6ad10261149cab31aa394bfcf8940/thumbnails/a6b62933bcce43e3b801cf5a3e36ece3/17286314a7de4346aca7db4e7a7ff737.jpeg",
+   "url": "https://sketchfab.com/3d-models/space-station-3-a7a6ad10261149cab31aa394bfcf8940",
+   "score": 3
+  },
+  "nvera": {
+   "id": "sketchfab:f6b9106fffc64fec93cabc17492cb2e4",
+   "name": "Sci-Fi Space Station",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/f6b9106fffc64fec93cabc17492cb2e4/thumbnails/6aa7c4d7887943479159dba0836630d3/0e3930518a9f4cc7a60b9dda77353a02.jpeg",
+   "url": "https://sketchfab.com/3d-models/sci-fi-space-station-f6b9106fffc64fec93cabc17492cb2e4",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "a pirate ship",
+  "size": "medium",
+  "seconds": 46.5,
+  "cost": 0.00392,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:f78e4e29b78c422b8db540459882e601",
+   "name": "Pirate ship (Rigged)",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/f78e4e29b78c422b8db540459882e601/thumbnails/e02c6d1557494c26833dd42db46cf761/6bf6e4f9ca03415790b867f7738f4905.jpeg",
+   "url": "https://sketchfab.com/3d-models/pirate-ship-rigged-f78e4e29b78c422b8db540459882e601",
+   "score": 5
+  },
+  "nvera": {
+   "id": "polyhaven:dutch_ship_large_02",
+   "name": "Dutch Ship Large 02",
+   "source": "polyhaven",
+   "thumbnail": "https://cdn.polyhaven.com/asset_img/thumbs/dutch_ship_large_02.png?width=512&height=512&format=webp&v=888cf2e8",
+   "url": "https://polyhaven.com/a/dutch_ship_large_02",
+   "score": 9
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "مسجد بقبة ومئذنة",
+  "size": "large",
+  "seconds": 61.1,
+  "cost": 0.00439,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:8f40778113c241d382f83397b3d08826",
+   "name": "Right Dome, Bibi-Khanym Mosque, Samarkand",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/8f40778113c241d382f83397b3d08826/thumbnails/fe3676d9c42b4b808cf568efd34a9bd4/33c90b4ed85f4096b52ad199d3480f6b.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-8f40778113c241d382f83397b3d08826",
+   "score": 5
+  },
+  "nvera": {
+   "id": "sketchfab:2042f88e161c43abbc7d8cf955cc6d57",
+   "name": "Jama Masjid Srinagar 3D Archiecture",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/2042f88e161c43abbc7d8cf955cc6d57/thumbnails/67ab334ccba946b786b84be5198b5240/acdd4bca0553437a8e5b7a4bc107df3b.jpeg",
+   "url": "https://sketchfab.com/3d-models/jama-masjid-srinagar-3d-archiecture-2042f88e161c43abbc7d8cf955cc6d57",
+   "score": 7
+  },
+  "candidates": 9
+ },
+ {
+  "prompt": "سيارة كلاسيكية قديمة",
+  "size": "small",
+  "seconds": 54.7,
+  "cost": 0.00381,
+  "credits": 2,
+  "title": {
+   "id": "sketchfab:327a435f3ba5459298e01cfb672fb512",
+   "name": "\"Bullsley\" Classic Car (3d Print)",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/327a435f3ba5459298e01cfb672fb512/thumbnails/0623f81c5498437fbbd7ae2ba331329c/0cdb2d4bb7914ad9876b094fb53358b2.jpeg",
+   "url": "https://sketchfab.com/3d-models/bullsley-classic-car-3d-print-327a435f3ba5459298e01cfb672fb512",
+   "score": 8
+  },
+  "nvera": {
+   "id": "sketchfab:e08f2486cc0c49a7a2102561fb9b3377",
+   "name": "Dirty Car - Cadillac 75 Sedan 1953",
+   "source": "sketchfab",
+   "thumbnail": "https://media.sketchfab.com/models/e08f2486cc0c49a7a2102561fb9b3377/thumbnails/c1760069e7a341edbc2fb248642d572c/f3f2b2a071e542a3a32c4789425b14af.jpeg",
+   "url": "https://sketchfab.com/3d-models/none-e08f2486cc0c49a7a2102561fb9b3377",
+   "score": 9
+  },
+  "candidates": 9
+ }
+]
