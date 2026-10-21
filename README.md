@@ -23,7 +23,8 @@ you get should really be what you asked for, not just something with a matching 
 - Search in plain language, English or Arabic
 - Settings you check before every search: scene size (object / room / environment), colored or
   monochrome, and up to two reference pictures
-- Searches six sources at once and has a vision model compare the previews side by side
+- Searches Poly Haven, Sketchfab (via Objaverse), Poly Pizza, the Smithsonian, three.js examples and the open web
+  at once, and has a vision model compare the previews side by side
 - Uses Tavily to look up what the real thing looks like, so models are judged against real photos
 - An honest score plus a checklist of what the model has and what it's missing
 - A "How NVera decided" panel: every step, model, time and cost for that search
@@ -38,7 +39,7 @@ you get should really be what you asked for, not just something with a matching 
 request -> Nemotron 3 Ultra   split into what to find (shape) and how it should look (restyle)
         -> Tavily             real-world photos and facts about the subject
         -> sources            Poly Haven, Sketchfab/Objaverse, Poly Pizza, Smithsonian, three.js, web
-        -> Kimi K2.6          compares up to 9 previews with the real photos
+        -> Nemotron 3.5 Super VL  compares up to 9 previews with the real photos (Kimi K2.6 as backup)
         -> Nemotron 3 Super   final pick and score
         -> download           GLB cached in models/, falls back to the next model if it fails
 ```
@@ -55,15 +56,15 @@ so changing how a step behaves doesn't need a code change.
 
 ### NVIDIA Nemotron on Nebius Token Factory
 
-Every AI call goes through Nebius Token Factory's OpenAI-compatible API. All the text reasoning
-runs on the Nemotron 3 family, picked by how hard each job is:
+Every AI call goes through Nebius Token Factory's OpenAI-compatible API, and every step runs on an NVIDIA
+Nemotron model, picked by how hard each job is:
 
 | Job | Model | Why |
 |---|---|---|
 | Scene analysis | `nvidia/Nemotron-3-Ultra-550b-a55b` | The one step that needs real reasoning, and everything after it depends on it |
 | Final pick | `nvidia/nemotron-3-super-120b-a12b` (Hermes 4 as fallback) | Short decision over the judge's shortlist, about 3x cheaper than Ultra |
 | Look edits | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` (Ultra as fallback) | Quick structured edits, about 16x cheaper than Ultra |
-| Vision judge | `moonshotai/Kimi-K2.6` | Needs to see images |
+| Vision judge | `nvidia/Nemotron-3.5-Super-VL` (Kimi K2.6 as fallback) | Sees the images. About 3x cheaper than Kimi, which judged until Oct 21 |
 
 Swapping a model is one line in `.env`. Prices come from `/v1/models?verbose=true`, which is how
 the app tracks cost per search (usually $0.01 to $0.03) and shows how many searches are left.
@@ -73,7 +74,7 @@ the app tracks cost per search (usually $0.01 to $0.03) and shows how many searc
 Tavily is used in three places, about 2 to 3 credits per search:
 
 1. Research: search with `include_images` and `include_answer` to get real photos and a short
-   description of what was asked. Kimi compares the candidates against those photos.
+   description of what was asked. The vision judge compares the candidates against those photos.
 2. Library search: one natural-language query across Sketchfab, Poly Pizza, Poly Haven and
    OpenGameArt (`include_domains`). Hits are turned into real downloadable models.
 3. Open web fallback: Search plus Extract, which reads whole pages to find direct `.glb` links.
@@ -100,6 +101,16 @@ On Windows you can just double-click `start.bat`.
 
 To work on the UI without spending credits, run the backend with `NVERA_MOCK=1` (or use
 `start-mock.bat`). It replays the pipeline and always returns the same sample model.
+
+Tests run offline and free (mock mode, no API keys needed):
+
+```bash
+.venv/Scripts/python -m pip install -r requirements-dev.txt
+.venv/Scripts/python -m pytest
+```
+
+They cover a full mock search, ratings being remembered, which models reach the judge, the vision
+judge falling back to its backup, and the public demo's rate limits.
 
 Other useful scripts:
 
@@ -130,6 +141,7 @@ frontend/src/
   components/ModelViewer.tsx  react-three-fiber viewer
   lib/restyle.ts              procedural materials
 scripts/        check_apis.py, try_pipeline.py, build_objaverse_index.py
+tests/          offline tests (pytest)
 docs/           DEPLOY.md, SUBMISSION.md
 ```
 
