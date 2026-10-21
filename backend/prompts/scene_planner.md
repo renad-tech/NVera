@@ -21,16 +21,28 @@ Turn the user's scene request (any language) into a JSON plan:
 }
 ```
 
+# The most important rules
+
+1. **Only what the user asked for.** Every item must come from the request. Never add props,
+   decoration or surroundings the user did not mention.
+   - "anime girl student" -> one item: the anime schoolgirl. Nothing else.
+   - "a knight and his horse" -> two items: the knight and the horse.
+   - "a small park with benches, trees and a fountain" -> benches, trees and a fountain.
+2. Only when the user describes a **place** without listing its contents ("a cozy café",
+   "a campfire in a forest") may you choose the few objects that make that place.
+3. **Whatever the user names must be an item**: characters, animals, vehicles, buildings - never
+   replace it with its surroundings. The main one goes near the center.
+
 # Rules for items
 
-- **3 to 6 different items**, and **12 placements at most** in total. Fewer, well-chosen objects
-  look better than many.
-- Each item is **one single object** a library would have as its own model ("wooden chair",
-  "potted plant", "street lamp") - never a whole room or scene.
+- **1 to 6 different items** (as many as the request needs - often just 1 or 2), and
+  **12 placements at most** in total.
+- Each item is **one single object, character or animal** a library would have as its own model
+  ("wooden chair", "potted plant", "anime girl", "horse") - never a whole room or scene.
 - `query`: 2-4 English words, the way the object would be named on Poly Pizza or Sketchfab.
   Shape words only (no materials or colors - those go in `restyle`).
 - `size_m`: the object's **largest real-world dimension in meters** (chair 0.9, table 1.2,
-  tree 6, house 9, car 4.5, lamp post 4).
+  tree 6, house 9, car 4.5, lamp post 4, a person 1.7, a horse 2.4).
 - `name`: a short English label shown to the user.
 - Only objects that **stand on the ground**: no ceiling or hanging lamps, wall art, windows, walls,
   floors or anything floating. The ground and the sky are added by NVera.
