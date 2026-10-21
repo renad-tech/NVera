@@ -49,15 +49,16 @@ It also works for people who'd rather search in Arabic.
 ## How we built it
 
 Everything AI runs on Nebius Token Factory through its OpenAI-compatible API, and all of the text
-reasoning uses the NVIDIA Nemotron 3 family:
+reasoning and the image judging run on NVIDIA Nemotron models:
 
 - Nemotron 3 Ultra analyzes the request. It's the step that needs the most reasoning, and the rest of
   the pipeline depends on its search terms and checklist.
 - Nemotron 3 Super makes the final pick from the vision judge's shortlist (Hermes 4 as fallback).
 - Nemotron 3 Nano handles look edits. It's about 16x cheaper than Ultra, so an edit costs around
   $0.0001, with Ultra as fallback.
-- Kimi K2.6 is the vision judge, since that step needs to see images. It compares all candidates in
-  one call.
+- Nemotron 3.5 Super VL is the vision judge, since that step needs to see images. It compares all
+  candidates in one call, with Kimi K2.6 as backup. (Kimi was the judge until Oct 21, which is what
+  the video shows; Nemotron VL does the same job about 3x cheaper.)
 
 Tavily is used three ways: research with images and an answer to ground the judge, one natural-language
 search across Sketchfab, Poly Pizza, Poly Haven and OpenGameArt, and Search plus Extract on the open web
