@@ -33,6 +33,22 @@ you get should really be what you asked for, not just something with a matching 
 - Learns from 👍/👎: past ratings are fed back into similar searches
 - Searches again with broader words when the first round is weak
 
+## NVera Studio: a whole scene from one sentence
+
+Open **Studio** in the finder and describe a scene ("a small park with benches, trees and a fountain"):
+
+1. Nemotron 3 Ultra plans it: 3-6 objects, each object's real size in meters, where it stands, which
+   way it faces, and one shared look.
+2. NVera finds a free model for each object (free libraries only, judged by Nemotron 3.5 Super VL),
+   three at a time.
+3. The browser places them on one ground, scales each to its real size and paints them all with the
+   same look, so models from different creators still look like one world.
+4. Click any object to move, turn, resize, copy or delete it, or "Try another" model for it.
+5. Download a ZIP with the whole scene as one GLB and a CREDITS.txt listing every model, its creator
+   and what its license asks of you.
+
+A search result can also be sent to the Studio with "Add to Studio". A scene costs about 1 cent.
+
 ## How it works
 
 ```
@@ -135,10 +151,12 @@ backend/
   agents/       scene analyzer, finder, vision judge, quality inspector, restyler, downloader
   sources/      polyhaven, sketchfab, objaverse, polypizza, smithsonian, threejs, web
   pipeline.py   runs the workflow and streams progress to the UI
+  scene_builder.py  Studio: plans a scene and finds a model for each object
   main.py       FastAPI app
 frontend/src/
   components/Finder.tsx       search page
   components/ModelViewer.tsx  react-three-fiber viewer
+  components/Studio.tsx       scene builder
   lib/restyle.ts              procedural materials
 scripts/        check_apis.py, try_pipeline.py, build_objaverse_index.py
 tests/          offline tests (pytest)
