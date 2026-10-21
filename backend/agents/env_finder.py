@@ -106,13 +106,15 @@ def _select(candidates: list[dict], words: set[str], n: int = MAX_FOR_JUDGE) -> 
     return (picked + rest)[:n]
 
 
-def find(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: set[str] = frozenset()) -> list[dict]:
+def find(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: set[str] = frozenset(),
+         use_tavily: bool = True) -> list[dict]:
+    """`use_tavily=False` searches only the free libraries (used for each object of a scene)."""
     found: dict[str, dict] = {}
     query, alts = scene["search_query"], scene["alt_queries"]
 
     on_stage(f"Searching Poly Haven, Sketchfab, Poly Pizza, Smithsonian and three.js for '{query}'")
     _merge(found, _run([
-        (tavily_libraries.search, query),  # Tavily across the libraries (1 credit)
+        *([(tavily_libraries.search, query)] if use_tavily else []),  # Tavily across the libraries (1 credit)
         (polyhaven.search, query),         # free, CC0
         (sketchfab.search_api, query),     # free
         (polypizza.search, query),
@@ -127,7 +129,7 @@ def find(scene: dict, usage: Usage, on_stage: Callable[[str], None], exclude: se
         jobs = [(fn, a) for a in alts for fn in (sketchfab.search_api, polypizza.search, polyhaven.search)]
         _merge(found, _run(jobs, usage), exclude)
 
-    if len(found) < 2:
+    if len(found) < 2 and use_tavily:
         on_stage("Searching the open web")
         _merge(found, _run([(web.search, query)], usage), exclude)
 

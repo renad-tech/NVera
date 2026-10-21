@@ -18,7 +18,7 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import config, memory, pipeline, restyle
+from backend import config, memory, pipeline, restyle, scene_builder
 from backend import usage as budget
 from backend.agents import restyler
 from backend.sources import objaverse
@@ -109,6 +109,56 @@ def restyle_model(req: RestyleRequest):
         )
     budget.add(usage, "restyle")
     return {"restyle": new, "message": message}
+
+
+# Scene Mode: one sentence -> several free models placed together
+
+
+class ScenePlanRequest(BaseModel):
+    prompt: str = Field(min_length=2, max_length=500)
+
+
+@app.post("/api/scene/plan", dependencies=[Depends(guard_paid)])
+def scene_plan(req: ScenePlanRequest):
+    """Nemotron 3 Ultra lays out the scene: objects, real sizes, positions, one shared look."""
+    if config.MOCK:
+        return scene_builder.MOCK_PLAN
+    usage = Usage()
+    try:
+        return scene_builder.plan(req.prompt.strip(), usage)
+    except Exception as e:
+        logging.getLogger("nvera").exception("scene plan failed")
+        raise HTTPException(status_code=502, detail=f"Couldn't plan this scene: {e}") from e
+    finally:
+        budget.add(usage, "search")
+        logging.getLogger("nvera").info("scene plan %r cost=$%.4f", req.prompt, usage.nebius_usd)
+
+
+class SceneItemRequest(BaseModel):
+    name: str = Field(min_length=2, max_length=60)
+    query: str = Field(min_length=2, max_length=60)
+    exclude: list[str] = Field(default_factory=list, max_length=20)  # models to skip ("try another")
+
+
+@app.post("/api/scene/item", dependencies=[Depends(guard_paid)])
+def scene_item(req: SceneItemRequest):
+    """Best free downloadable model for one object of a scene (no Tavily; the vision judge picks)."""
+    if config.MOCK:
+        try:
+            return scene_builder.mock_item(req.name)
+        except ValueError as e:
+            raise HTTPException(status_code=404, detail=str(e)) from e
+    usage = Usage()
+    try:
+        return scene_builder.find_item(req.name.strip(), req.query.strip(), usage, frozenset(req.exclude))
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except Exception as e:
+        logging.getLogger("nvera").exception("scene item failed")
+        raise HTTPException(status_code=502, detail=f"Couldn't find '{req.name}': {e}") from e
+    finally:
+        budget.add(usage, "scene")
+        logging.getLogger("nvera").info("scene item %r cost=$%.4f", req.name, usage.nebius_usd)
 
 
 # Free but private: access code only

@@ -48,7 +48,8 @@ def guard_paid(request: Request) -> None:
 
     if budget.spent_today() >= config.DAILY_BUDGET_USD:
         raise HTTPException(status_code=503, detail=DAILY_LIMIT)
-    if not request.url.path.endswith("/find"):
+    # A scene plan counts as one search; its objects only count toward the dollar cap.
+    if not request.url.path.endswith(("/find", "/scene/plan")):
         return
 
     ip, now = _client_ip(request), time.time()
