@@ -183,3 +183,26 @@ def test_a_scene_plan_counts_as_a_search(live, monkeypatch):
     guard.guard_paid(req)
     with pytest.raises(HTTPException):
         guard.guard_paid(req)
+
+
+def test_a_result_remembers_the_next_models_for_when_it_cant_be_displayed(monkeypatch, tmp_path):
+    from backend import pipeline
+    files = {}
+
+    def fake_download(c):
+        path = tmp_path / c["file"]
+        path.write_bytes(b"glTF" + b"0" * 100)
+        files[c["id"]] = path
+        return path
+
+    monkeypatch.setattr(pipeline.downloader, "download", fake_download)
+    ranked = [candidate(str(i), f"Model {i}", file=f"m{i}.glb", author="a", license="CC0",
+                        quality={"score": 9 - i, "reason": "", "has": [], "missing": []})
+              for i in range(3)]
+    events = list(pipeline._download_first("a chair", SearchSettings(), {}, ranked, Usage()))
+    first = events[-1]["data"]
+    assert first["model"]["name"] == "Model 0" and first["next_job_id"]
+
+    events = list(pipeline.resume(first["next_job_id"], "editable"))
+    second = events[-1]["data"]
+    assert second["model"]["name"] == "Model 1" and second["next_job_id"]  # and it chains on
