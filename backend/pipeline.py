@@ -2,7 +2,8 @@
 
     Nemotron (analyze) -> Tavily (real-world research: photos + facts)
     -> Tavily + Sketchfab + Poly Pizza + three.js [+ web via Tavily Search/Extract] (find)
-    -> Kimi (vision judge: previews vs. real photos) -> Nemotron Super (final pick) -> download
+    -> Nemotron 3.5 Super VL (vision judge: previews vs. real photos, Kimi K2.6 as backup)
+    -> Nemotron Super (final pick) -> download
 
 The best model always wins, whatever its size. If it is larger than LARGE_MODEL_MB the
 stream ends with a `confirm` event; the user answers via `resume(job_id, accept)`,
@@ -44,6 +45,11 @@ SOURCE_LABELS = {
 LARGE_BYTES = config.LARGE_MODEL_MB * 1_000_000
 JOB_TTL = 30 * 60  # pending confirmations expire after 30 minutes
 _pending: dict[str, dict] = {}
+
+
+def judge_name() -> str:
+    """Short name of the vision judge for progress messages."""
+    return "Nemotron VL" if "nemotron" in config.JUDGE_MODEL.lower() else config.JUDGE_MODEL.split("/")[-1].split("-")[0]
 
 
 def step(name: str, message: str) -> dict:
@@ -131,10 +137,11 @@ def run(prompt: str, settings: SearchSettings) -> Iterator[dict]:
             )
 
         sources = sorted({SOURCE_LABELS[c["source"]] for c in candidates})
-        yield step("inspect", f"Kimi is comparing {len(candidates)} previews from {', '.join(sources)}")
+        yield step("inspect", f"{judge_name()} is comparing {len(candidates)} previews from {', '.join(sources)}")
         trace.begin("judge", "Vision Judge", config.JUDGE_MODEL)
         try:
             candidates = judge(candidates)
+            trace.set_model(usage.judge_model or config.JUDGE_MODEL)
 
             # Round 2: no good *downloadable* model yet -> search broader before settling for a
             # view-only Sketchfab result, and judge the newcomers against the best 3.
@@ -144,7 +151,7 @@ def run(prompt: str, settings: SearchSettings) -> Iterator[dict]:
                 trace.begin("round2", "Second round (weak results)", "Tavily + libraries, then Vision Judge")
                 more = env_finder.find_more(scene, usage, lambda _msg: None, exclude={c["id"] for c in candidates})
                 if more:
-                    yield step("inspect", f"Kimi is comparing {len(more)} new previews with the best so far")
+                    yield step("inspect", f"{judge_name()} is comparing {len(more)} new previews with the best so far")
                     rejudged = judge(candidates[:3] + more)
                     candidates = rejudged + [c for c in candidates[3:] if c not in rejudged]
                     candidates.sort(key=lambda c: -(c.get("judge") or {}).get("score", 0))
@@ -334,7 +341,7 @@ def run_mock(prompt: str, settings: SearchSettings) -> Iterator[dict]:
         ("analyze", "Nemotron is analyzing your scene"),
         ("research", "Tavily is researching what a palace really looks like"),
         ("search", "Searching Sketchfab, Poly Pizza and three.js for 'palace desert'"),
-        ("inspect", "Kimi is comparing 8 previews from Poly Pizza, Sketchfab"),
+        ("inspect", "Nemotron VL is comparing 8 previews from Poly Pizza, Sketchfab"),
         ("inspect", "Nemotron Super is making the final call"),
     ]:
         yield step(name, f"{msg} (mock)")
@@ -359,7 +366,7 @@ def run_mock(prompt: str, settings: SearchSettings) -> Iterator[dict]:
             {"key": "analyze", "agent": "Scene Analyzer", "model": config.NEMOTRON_MODEL, "seconds": 3.1, "usd": 0.0021, "tavily_credits": 0},
             {"key": "research", "agent": "Real-world research", "model": "Tavily search + images", "seconds": 1.4, "usd": 0, "tavily_credits": 1},
             {"key": "search", "agent": "Library search", "model": "Tavily + 5 libraries", "seconds": 2.6, "usd": 0, "tavily_credits": 1},
-            {"key": "judge", "agent": "Vision Judge", "model": config.JUDGE_MODEL, "seconds": 6.8, "usd": 0.0049, "tavily_credits": 0},
+            {"key": "judge", "agent": "Vision Judge", "model": config.JUDGE_MODEL, "seconds": 6.5, "usd": 0.0015, "tavily_credits": 0},
             {"key": "inspect", "agent": "Quality Inspector", "model": config.INSPECTOR_MODEL, "seconds": 1.9, "usd": 0.0006, "tavily_credits": 0},
         ],
         "total_seconds": 15.8,

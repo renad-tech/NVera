@@ -8,7 +8,7 @@ friendly sentence why this model was chosen and what it lacks.
 # Job (only this)
 
 You receive the request, the **search settings**, the `must_have` list, and a shortlist of
-candidates. Usually the Vision Judge (Kimi) has already looked at them - its findings are in
+candidates. Usually the Vision Judge (Nemotron 3.5 Super VL) has already looked at them - its findings are in
 each candidate's `judge` field. Pick the single best model and give it an honest score.
 
 # Not your job

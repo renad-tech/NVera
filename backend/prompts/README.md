@@ -7,12 +7,12 @@ Each AI has exactly one job. Its file here is its system prompt: **Soul** (who i
 | File | Model | Job | Sees images? |
 |---|---|---|---|
 | [scene_analyzer.md](scene_analyzer.md) | Nemotron 3 Ultra | Splits the request into **shape** (search terms, must-haves) and **look** (restyle) | No |
-| [vision_judge.md](vision_judge.md) | Kimi K2.6 | Looks at every candidate's preview and ranks them | Yes |
+| [vision_judge.md](vision_judge.md) | Nemotron 3.5 Super VL (Kimi K2.6 fallback) | Looks at every candidate's preview and ranks them | Yes |
 | [quality_inspector.md](quality_inspector.md) | Nemotron 3 **Super** (Hermes 4 fallback) | Makes the final pick and explains it honestly to the user | No |
 | [restyler.md](restyler.md) | Nemotron 3 **Nano** (Ultra fallback) | Edits the look from chat (“make it cardboard at night”) | No |
 
 **Tavily** is the team's window on the real world (no prompt file - it's a search API):
-- `agents/researcher.py` - researches what the requested thing really looks like (photos + facts) -> Kimi and the Quality Inspector
+- `agents/researcher.py` - researches what the requested thing really looks like (photos + facts) -> the Vision Judge and the Quality Inspector
 - `sources/tavily_libraries.py` - natural-language search across Sketchfab, Poly Pizza and OpenGameArt at once
 - `sources/web.py` - Tavily Search + **Extract** read whole pages to find direct `.glb` downloads
 

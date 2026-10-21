@@ -2,7 +2,7 @@
 
 Not model training - just experience:
   • Nemotron gets "lessons" from similar past requests (queries users liked, complaints to avoid).
-  • Kimi and the Quality Inspector see if a candidate was rated before, and why.
+  • The vision judge and the Quality Inspector see if a candidate was rated before, and why.
 
 Stored in Upstash Redis when it's configured (survives restarts on free hosts), otherwise as JSON
 lines in memory/history.jsonl (git-ignored). Mock runs are kept separately.

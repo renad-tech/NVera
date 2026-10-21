@@ -24,6 +24,11 @@ class Trace:
             "usd0": self.usage.nebius_usd, "credits0": self.usage.tavily_credits,
         }
 
+    def set_model(self, model: str) -> None:
+        """The running step ended up on another model (a fallback took over)."""
+        if self._open:
+            self._open["model"] = model
+
     def end(self) -> None:
         if not self._open:
             return

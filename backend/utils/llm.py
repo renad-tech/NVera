@@ -24,6 +24,8 @@ class Usage:
     llm_usd: float = 0.0  # priced per model (config.PRICES)
     judge_in: int = 0
     judge_out: int = 0
+    judge_usd: float = 0.0
+    judge_model: str = ""
     tavily_credits: int = 0
 
     def add(self, model: str, tokens_in: int, tokens_out: int) -> None:
@@ -32,10 +34,15 @@ class Usage:
         self.tokens_out += tokens_out
         self.llm_usd += (tokens_in * price_in + tokens_out * price_out) / 1e6
 
+    def add_judge(self, model: str, tokens_in: int, tokens_out: int) -> None:
+        price_in, price_out = config.price(model)
+        self.judge_in += tokens_in
+        self.judge_out += tokens_out
+        self.judge_usd += (tokens_in * price_in + tokens_out * price_out) / 1e6
+
     @property
     def nebius_usd(self) -> float:
-        judge = self.judge_in * config.JUDGE_PRICE_IN + self.judge_out * config.JUDGE_PRICE_OUT
-        return self.llm_usd + judge / 1e6
+        return self.llm_usd + self.judge_usd
 
 
 def _ask_once(model: str, system: str, user: str, usage: Usage, fast: bool) -> dict:

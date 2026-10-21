@@ -17,9 +17,11 @@ RESTYLER_MODEL = os.getenv("RESTYLER_MODEL", "nvidia/NVIDIA-Nemotron-3-Nano-30B-
 # Quality Inspector: Nemotron 3 Super (NVIDIA) makes the final pick; Hermes 4 takes over if it fails.
 INSPECTOR_MODEL = os.getenv("INSPECTOR_MODEL", "nvidia/nemotron-3-super-120b-a12b")
 HERMES_MODEL = os.getenv("HERMES_MODEL", "NousResearch/Hermes-4-405B")
-# Vision judge: compares all candidate previews in one call. Any OpenAI-compatible
-# provider works - leave JUDGE_BASE_URL / JUDGE_API_KEY empty to use Nebius.
-JUDGE_MODEL = os.getenv("JUDGE_MODEL", "moonshotai/Kimi-K2.6")
+# Vision judge: compares all candidate previews in one call. NVIDIA's Nemotron 3.5 Super VL sees the
+# images; Kimi K2.6 takes over if it fails. Any OpenAI-compatible provider works - leave
+# JUDGE_BASE_URL / JUDGE_API_KEY empty to use Nebius.
+JUDGE_MODEL = os.getenv("JUDGE_MODEL", "nvidia/Nemotron-3.5-Super-VL")
+JUDGE_FALLBACK_MODEL = os.getenv("JUDGE_FALLBACK_MODEL", "moonshotai/Kimi-K2.6")
 JUDGE_BASE_URL = os.getenv("JUDGE_BASE_URL", "")
 JUDGE_API_KEY = os.getenv("JUDGE_API_KEY", "")
 POLY_PIZZA_API_KEY = os.getenv("POLY_PIZZA_API_KEY", "")
@@ -42,8 +44,9 @@ PRICES = {
     "nvidia/nemotron-3-super-120b-a12b": (0.30, 0.90),
     "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B": (0.06, 0.24),
     "NousResearch/Hermes-4-405B": (1.0, 3.0),
+    "nvidia/Nemotron-3.5-Super-VL": (0.30, 0.90),
+    "moonshotai/Kimi-K2.6": (0.95, 4.0),
 }
-JUDGE_PRICE_IN, JUDGE_PRICE_OUT = 0.95, 4.0  # Kimi K2.6
 
 
 def price(model: str) -> tuple[float, float]:

@@ -1,7 +1,7 @@
 """Agent 1b - Real-world Researcher (Tavily): what does the requested thing actually look like?
 
 One Tavily search with images + a short answer (1 credit). The results ground the whole team:
-  • Kimi compares candidate models against these real photos (when the user gave no reference),
+  • The vision judge (Nemotron 3.5 Super VL) compares candidate models against these real photos (when the user gave no reference),
   • the Quality Inspector gets the facts, and the user sees what Tavily found in the result card.
 """
 
