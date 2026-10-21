@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NVera evaluation</title>
+<style>
+  :root { --bg:#050705; --panel:#0e1810; --line:#1f3a2a; --fg:#eafff4; --muted:#8fb3a1; --neon:#3be5a3; }
+  body { background:var(--bg); color:var(--fg); font:15px/1.5 "Segoe UI", system-ui, sans-serif; margin:0; padding:24px 16px 120px; }
+  main { max-width:900px; margin:0 auto; }
+  h1 { color:var(--neon); font-size:20px; margin:0 0 4px; }
+  .lead { color:var(--muted); margin:0 0 24px; }
+  section { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:14px; }
+  section.done { border-color:var(--neon); }
+  h2 { font-size:16px; margin:0 0 10px; }
+  .same { color:var(--muted); margin:-4px 0 10px; font-size:13px; }
+  .picks { display:flex; flex-wrap:wrap; gap:12px; }
+  .pick { flex:1 1 240px; min-width:0; display:flex; flex-direction:column; gap:6px; }
+  .pick img, .noimg { width:100%; aspect-ratio:16/10; object-fit:contain; background:#000; border-radius:8px; }
+  .noimg { display:grid; place-items:center; color:var(--muted); }
+  .pick a { color:var(--neon); font-size:13px; }
+  .btns { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  button { font:600 14px inherit; font-family:inherit; color:var(--fg); background:var(--bg); border:1px solid var(--line); border-radius:8px; padding:8px 14px; cursor:pointer; }
+  button.on { background:var(--neon); color:var(--bg); border-color:var(--neon); }
+  button:focus-visible { outline:2px solid var(--neon); outline-offset:2px; }
+  .bar { position:fixed; left:0; right:0; bottom:0; background:var(--panel); border-top:1px solid var(--line); padding:12px 16px; display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  #out { color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Which pick is right?</h1>
+  <p class="lead">For each request, look at the pictures and mark which model really matches what was asked.
+  A and B are in random order, so you don't know which one NVera chose. Your answers save in this browser.</p>
+  {{ROWS}}
+</main>
+<div class="bar">
+  <span id="out">0 marked</span>
+  <button id="copy" type="button">Copy results</button>
+</div>
+<script>
+const KEY = {{KEY}};
+const store = (() => { try { return JSON.parse(localStorage.getItem("nvera-eval") || "{}"); } catch { return {}; } })();
+function save() { try { localStorage.setItem("nvera-eval", JSON.stringify(store)); } catch {} }
+function tally() {
+  let title = 0, nvera = 0, n = 0;
+  for (const [i, v] of Object.entries(store)) {
+    const k = KEY[i]; n++;
+    if (k.same) { if (v === "A") { title++; nvera++; } continue; }
+    const right = v === "both" ? ["A", "B"] : v === "none" ? [] : [v];
+    for (const side of right) { if (k[side] === "title") title++; else nvera++; }
+  }
+  return { n, title, nvera };
+}
+function render() {
+  document.querySelectorAll("section").forEach(sec => {
+    const v = store[sec.dataset.i];
+    sec.classList.toggle("done", Boolean(v));
+    sec.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  });
+  const t = tally();
+  document.getElementById("out").textContent =
+    `${t.n} of ${Object.keys(KEY).length} marked · title search right: ${t.title} · NVera right: ${t.nvera}`;
+}
+document.querySelectorAll("section").forEach(sec => sec.querySelectorAll("button").forEach(b =>
+  b.addEventListener("click", () => { store[sec.dataset.i] = b.dataset.v; save(); render(); })));
+document.getElementById("copy").addEventListener("click", async () => {
+  const t = tally();
+  const text = `NVERA EVAL ${JSON.stringify(store)} | marked ${t.n}, title ${t.title}, nvera ${t.nvera}`;
+  try { await navigator.clipboard.writeText(text); document.getElementById("copy").textContent = "Copied"; }
+  catch { prompt("Copy this:", text); }
+});
+render();
+</script>
+</body>
+</html>
