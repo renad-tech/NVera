@@ -126,7 +126,7 @@ const STEPS = [
   { n: "01", title: "Describe", body: "Type the scene you need — the main thing plus a few details you want to see.", agent: "You" },
   { n: "02", title: "Understand", body: "Turns your words and settings into search terms and a must-have checklist.", agent: "Nemotron" },
   { n: "03", title: "Search", body: "Looks through Poly Haven, Sketchfab, Poly Pizza, the Smithsonian and more for ready-made models.", agent: "Tavily" },
-  { n: "04", title: "Judge", body: "Looks at every preview side by side and picks the best match — honestly scored.", agent: "Kimi · Nemotron" },
+  { n: "04", title: "Judge", body: "Looks at every preview side by side and picks the best match — honestly scored.", agent: "Nemotron VL · Super" },
 ];
 
 function HowItWorks() {

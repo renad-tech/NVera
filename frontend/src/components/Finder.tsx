@@ -20,7 +20,7 @@ const STEPS: { step: StepName; label: string; agent: string }[] = [
   { step: "analyze",  label: "Understanding your scene",  agent: "Nemotron" },
   { step: "research", label: "Researching the real thing", agent: "Tavily" },
   { step: "search",   label: "Searching 3D libraries",    agent: "Tavily + APIs" },
-  { step: "inspect",  label: "Picking the best match",   agent: "Kimi · Nemotron" },
+  { step: "inspect",  label: "Picking the best match",   agent: "Nemotron VL · Super" },
   { step: "download", label: "Downloading model",        agent: "Download" },
 ];
 
@@ -217,7 +217,7 @@ function TracePanel({ trace, cost }: { trace: SearchTrace; cost: FindResult["cos
             ))}
           </div>
           <p className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.3)" }}>
-            Candidates Kimi compared
+            Candidates the vision judge compared
           </p>
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
             {trace.candidates.map((c) => (
@@ -270,7 +270,7 @@ function TavilyPanel({ research }: { research: TavilyResearch }) {
         <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{research.answer}</p>
       )}
       <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.30)" }}>
-        Kimi compared the models with these real-world photos.
+        Nemotron VL compared the models with these real-world photos.
         {research.sources.length > 0 && <> Sources: {research.sources.slice(0, 3).map((s, i) => (
           <span key={s.url}>{i > 0 && ", "}<a href={s.url} target="_blank" rel="noreferrer" className="underline decoration-white/20 hover:text-white/60">
             {new URL(s.url).hostname.replace(/^www\./, "")}</a></span>
