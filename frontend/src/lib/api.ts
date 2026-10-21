@@ -111,6 +111,8 @@ export interface FindResult {
   job_id?: string;
   /** Best model NVera may download and edit, when the winner is view-only. */
   alternative?: ModelSummary | null;
+  /** The models ranked below this one, if the viewer can't display it (ask with confirmDownload). */
+  next_job_id?: string | null;
   quality: { score: number; reason: string; has: string[]; missing: string[] };
   cost: { nebius_usd: number; tavily_credits: number };
   /** True when the backend runs with NVERA_MOCK=1 (always returns the same sample model). */

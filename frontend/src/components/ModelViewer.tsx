@@ -124,9 +124,30 @@ class ViewerErrorBoundary extends Component<{ children: ReactNode }, { failed: b
 
 // Viewer
 
-export default function ModelViewer({ url, restyle, className = "", handleRef, overlay, attribution }: {
+/** True when the canvas shows (almost) nothing but its background - the model loaded but can't
+ *  be seen, e.g. a broken rig. Compares every sampled pixel with the corners' color. */
+function looksEmpty(canvas: HTMLCanvasElement): boolean {
+  const n = 48;
+  const probe = document.createElement("canvas");
+  probe.width = probe.height = n;
+  const ctx = probe.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return false;
+  ctx.drawImage(canvas, 0, 0, n, n);
+  const d = ctx.getImageData(0, 0, n, n).data;
+  const corners = [0, n - 1, n * (n - 1), n * n - 1].map((i) => [d[i * 4], d[i * 4 + 1], d[i * 4 + 2]]);
+  const bg = [0, 1, 2].map((k) => corners.reduce((s, c) => s + c[k], 0) / 4);
+  let different = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    if (Math.abs(d[i] - bg[0]) + Math.abs(d[i + 1] - bg[1]) + Math.abs(d[i + 2] - bg[2]) > 45) different++;
+  }
+  return different < n * n * 0.004;
+}
+
+export default function ModelViewer({ url, restyle, className = "", handleRef, overlay, attribution, onEmpty }: {
   url: string;
   restyle: Restyle;
+  /** Called once if the model loaded but nothing shows on screen. */
+  onEmpty?: () => void;
   /** Written into exported GLBs (glTF "extras") so the creator credit follows the file. */
   attribution?: Record<string, string>;
   className?: string;
@@ -165,6 +186,17 @@ export default function ModelViewer({ url, restyle, className = "", handleRef, o
       },
     };
   }, [handleRef, loaded, attribution]);
+
+  // A few seconds after the model loads, make sure something is actually on screen.
+  const onEmptyRef = useRef(onEmpty);
+  onEmptyRef.current = onEmpty;
+  useEffect(() => {
+    if (!loaded) return;
+    const t = setTimeout(() => {
+      if (document.visibilityState === "visible" && canvasRef.current && looksEmpty(canvasRef.current)) onEmptyRef.current?.();
+    }, 3000);
+    return () => clearTimeout(t);
+  }, [loaded]);
 
   const iso = CAMERA_DISTANCE / Math.sqrt(3);
   return (

@@ -36,6 +36,10 @@ interface Msg {
   step?:    StepName;
   stepMsg?: string;
   result?:  FindResult;
+  /** Shown above the result, e.g. when NVera switched to the next model. */
+  notice?:  string;
+  /** How many times NVera already switched to the next model for this search. */
+  switched?: number;
   confirm?: ConfirmRequest;
   error?:   string;
 }
@@ -469,11 +473,12 @@ function LookEditor({ result, restyle, setRestyle }: {
   );
 }
 
-function ResultCard({ result, onFeedback, onAlternative, onAddToStudio }: {
+function ResultCard({ result, onFeedback, onAlternative, onAddToStudio, onEmpty }: {
   result: FindResult;
   onFeedback: () => void;
   onAlternative: (jobId: string) => void;
   onAddToStudio: (result: FindResult) => void;
+  onEmpty: () => void;
 }) {
   const { model, quality } = result;
   const viewOnly = Boolean(result.embed_url);
@@ -533,7 +538,7 @@ function ResultCard({ result, onFeedback, onAlternative, onAddToStudio }: {
         {viewOnly
           ? <SketchfabEmbed url={result.embed_url!} title={model.name} />
           : <ModelViewer url={modelUrl(result)} restyle={restyle} handleRef={viewer} overlay={overlay}
-              attribution={attribution} className="h-96 w-full" />}
+              attribution={attribution} className="h-96 w-full" onEmpty={onEmpty} />}
 
         <div className="space-y-3 px-4 py-3.5">
           {result.mock && (
@@ -678,12 +683,13 @@ function ConfirmCard({ req, onAnswer }: {
   );
 }
 
-function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio }: {
+function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio, onEmpty }: {
   msg: Msg;
   onAnswer: (jobId: string, accept: boolean) => void;
   onFeedback: () => void;
   onAlternative: (jobId: string) => void;
   onAddToStudio: (result: FindResult) => void;
+  onEmpty: () => void;
 }) {
   return (
     <div className="flex items-start gap-3">
@@ -698,7 +704,15 @@ function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio 
           {msg.error}
         </div>
       ) : msg.result ? (
-        <ResultCard result={msg.result} onFeedback={onFeedback} onAlternative={onAlternative} onAddToStudio={onAddToStudio} />
+        <div className="min-w-0 flex-1 space-y-2">
+          {msg.notice && (
+            <p className="rounded-xl px-3 py-2 text-xs" style={{ background: "rgba(0,255,136,0.06)", border: "1px solid rgba(0,255,136,0.18)", color: "rgba(255,255,255,0.7)" }}>
+              {msg.notice}
+            </p>
+          )}
+          <ResultCard key={msg.result.search_id} result={msg.result} onFeedback={onFeedback} onAlternative={onAlternative}
+            onAddToStudio={onAddToStudio} onEmpty={onEmpty} />
+        </div>
       ) : null}
     </div>
   );
@@ -969,6 +983,17 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
     track(lid, (onStep) => findModel(trimmed, used, onStep));
   }
 
+  /** The model loaded but nothing shows (e.g. a broken rig): switch to the next one, at most twice. */
+  function showNext(msg: Msg) {
+    const jobId = msg.result?.next_job_id;
+    if (!jobId || (msg.switched ?? 0) >= 2) return;
+    patchMsg(msg.id, {
+      switched: (msg.switched ?? 0) + 1,
+      notice: `"${msg.result!.model.name}" couldn't be displayed, so NVera picked the next best model.`,
+    });
+    answer(msg.id, jobId, "editable");
+  }
+
   function answer(id: string, jobId: string, choice: Choice) {
     patchMsg(id, { loading: true, confirm: undefined, step: "download", stepMsg: undefined });
     track(id, (onStep) => confirmDownload(jobId, choice, onStep));
@@ -1036,6 +1061,7 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
                   : <AssistantMsg key={msg.id} msg={msg} onFeedback={refreshUsage}
                       onAlternative={(jobId) => answer(msg.id, jobId, "editable")}
                       onAddToStudio={onAddToStudio}
+                      onEmpty={() => showNext(msg)}
                       onAnswer={(jobId, accept) => answer(msg.id, jobId, accept ? "large" : "smaller")} />
               )}
               <div ref={bottomRef} />
