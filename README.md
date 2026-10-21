@@ -33,6 +33,23 @@ you get should really be what you asked for, not just something with a matching 
 - Learns from 👍/👎: past ratings are fed back into similar searches
 - Searches again with broader words when the first round is weak
 
+## Does the vision judge help? A small evaluation
+
+30 requests (objects, rooms, landscapes, two in Arabic). For each one, two picks from the same
+candidates: a plain **title search** (the model whose name matches the request best, no AI) and
+**NVera** (Tavily photos + Nemotron 3.5 Super VL + Nemotron 3 Super). A person then marked which picks
+really match the request, without knowing which method chose which (random A/B order).
+
+| Method | Right picks |
+|---|---|
+| Title search | 19 / 30 (63%) |
+| **NVera** | **25 / 30 (83%)** |
+
+NVera was right where the title search was wrong 9 times (a "medieval castle on a hill" title search
+returned a castle *door*); the reverse happened 3 times, and both missed 2. Total cost of the run:
+$0.13 and 60 Tavily credits. Code: [scripts/evaluate.py](scripts/evaluate.py), data and marks:
+[eval/](eval/).
+
 ## NVera Studio: a whole scene from one sentence
 
 Open **Studio** in the finder and describe a scene ("a small park with benches, trees and a fountain"):
