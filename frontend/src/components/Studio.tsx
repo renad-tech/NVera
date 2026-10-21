@@ -17,6 +17,7 @@ import { glbBlob, saveBlob } from "../lib/exportGlb";
 import { makeZip } from "../lib/zip";
 import { creditsText } from "../lib/credits";
 import { withSpecGloss } from "../lib/specGloss";
+import { modelBounds } from "../lib/fitModel";
 
 const NEON = "#00ff88";
 const EXAMPLES = [
@@ -96,7 +97,7 @@ function SceneObject({ inst, item, restyle, onSelect }: {
   // Each instance gets its own copy, standing on the ground, scaled to the object's real size.
   const object = useMemo(() => {
     const model = cloneSkinned(scene);
-    const box = new THREE.Box3().setFromObject(model);
+    const box = modelBounds(model);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     model.position.set(-center.x, -box.min.y, -center.z);

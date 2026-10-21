@@ -13,6 +13,7 @@ import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js
 import { applyRestyle, groundMaterial, LIGHTS, type Restyle } from "../lib/restyle";
 import { exportGlb } from "../lib/exportGlb";
 import { withSpecGloss } from "../lib/specGloss";
+import { modelBounds } from "../lib/fitModel";
 
 /** Every model is scaled to about this size, so lights, shadows and fog behave the same. */
 const TARGET = 10;
@@ -38,7 +39,7 @@ function Model({ url, restyle, onLoaded }: { url: string; restyle: Restyle; onLo
 
   const loaded = useMemo<Loaded>(() => {
     const object = cloneSkinned(scene);  // the loader caches `scene`; never mutate the shared one
-    const box = new THREE.Box3().setFromObject(object);
+    const box = modelBounds(object);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     object.position.set(-center.x, -box.min.y, -center.z);  // centered, standing on y = 0
