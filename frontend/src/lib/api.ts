@@ -232,3 +232,44 @@ export async function getUsage(): Promise<UsageStatus | null> {
     return null;
   }
 }
+
+// Scene Mode
+
+export interface ScenePlan {
+  title: string;
+  /** Side of the square ground, in meters. */
+  area_m: number;
+  restyle: Restyle;
+  items: { name: string; query: string; size_m: number; placements: { x: number; z: number; rot: number }[] }[];
+}
+
+export interface SceneModel {
+  id: string; name: string; author: string; author_url: string; license: string; url: string;
+  source_label: string; size_mb: number;
+}
+
+export interface SceneItemResult {
+  name: string;
+  model: SceneModel;
+  glb_path: string;
+  score: number | null;
+  reason: string;
+}
+
+/** Nemotron 3 Ultra lays out the scene (objects, real sizes, positions, one shared look). */
+export async function planScene(prompt: string): Promise<ScenePlan> {
+  const res = await post("/scene/plan", { prompt });
+  if (!res.ok) throw await failure(res);
+  return res.json();
+}
+
+/** Best free model for one object of the scene. `exclude` skips models already tried. */
+export async function findSceneItem(name: string, query: string, exclude: string[] = []): Promise<SceneItemResult> {
+  const res = await post("/scene/item", { name, query, exclude });
+  if (!res.ok) throw await failure(res);
+  return res.json();
+}
+
+export function serverUrl(path: string) {
+  return `${SERVER_BASE}${path}`;
+}

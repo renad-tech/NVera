@@ -469,10 +469,11 @@ function LookEditor({ result, restyle, setRestyle }: {
   );
 }
 
-function ResultCard({ result, onFeedback, onAlternative }: {
+function ResultCard({ result, onFeedback, onAlternative, onAddToStudio }: {
   result: FindResult;
   onFeedback: () => void;
   onAlternative: (jobId: string) => void;
+  onAddToStudio: (result: FindResult) => void;
 }) {
   const { model, quality } = result;
   const viewOnly = Boolean(result.embed_url);
@@ -618,6 +619,12 @@ function ResultCard({ result, onFeedback, onAlternative }: {
               style={{ border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.45)" }}>
               View on {model.source_label}
             </a>
+            <button onClick={() => onAddToStudio(result)}
+              title="Open NVera Studio and build a whole scene around this model"
+              className="rounded-lg px-3 py-[7px] text-xs font-semibold transition-colors hover:bg-[rgba(0,255,136,0.08)]"
+              style={{ border: "1px solid rgba(0,255,136,0.35)", color: "#00ff88" }}>
+              Add to Studio
+            </button>
           </div>
           <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.30)" }}>
             The GLB keeps the material, colors and ground. Light, sky, fog and glow are viewer settings —
@@ -671,11 +678,12 @@ function ConfirmCard({ req, onAnswer }: {
   );
 }
 
-function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative }: {
+function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio }: {
   msg: Msg;
   onAnswer: (jobId: string, accept: boolean) => void;
   onFeedback: () => void;
   onAlternative: (jobId: string) => void;
+  onAddToStudio: (result: FindResult) => void;
 }) {
   return (
     <div className="flex items-start gap-3">
@@ -690,7 +698,7 @@ function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative }: {
           {msg.error}
         </div>
       ) : msg.result ? (
-        <ResultCard result={msg.result} onFeedback={onFeedback} onAlternative={onAlternative} />
+        <ResultCard result={msg.result} onFeedback={onFeedback} onAlternative={onAlternative} onAddToStudio={onAddToStudio} />
       ) : null}
     </div>
   );
@@ -893,7 +901,11 @@ function HowToUse({ onClose }: { onClose: () => void }) {
 
 // Finder
 
-export default function Finder({ onBack }: { onBack: () => void }) {
+export default function Finder({ onBack, onStudio, onAddToStudio }: {
+  onBack: () => void;
+  onStudio: () => void;
+  onAddToStudio: (result: FindResult) => void;
+}) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input,    setInput]    = useState("");
   const [settings, setSettings] = useState<SearchSettings>(DEFAULT_SETTINGS);
@@ -994,6 +1006,12 @@ export default function Finder({ onBack }: { onBack: () => void }) {
             How to use
           </button>
 
+          <button onClick={onStudio} title="Build a whole scene from one sentence"
+            className="rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-150 hover:bg-[rgba(0,255,136,0.08)]"
+            style={{ border: "1px solid rgba(0,255,136,0.35)", color: "#00ff88" }}>
+            Studio
+          </button>
+
           <div className="h-4 w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
 
           <button onClick={onBack}
@@ -1017,6 +1035,7 @@ export default function Finder({ onBack }: { onBack: () => void }) {
                   ? <UserMsg      key={msg.id} text={msg.text} settings={msg.settings} />
                   : <AssistantMsg key={msg.id} msg={msg} onFeedback={refreshUsage}
                       onAlternative={(jobId) => answer(msg.id, jobId, "editable")}
+                      onAddToStudio={onAddToStudio}
                       onAnswer={(jobId, accept) => answer(msg.id, jobId, accept ? "large" : "smaller")} />
               )}
               <div ref={bottomRef} />

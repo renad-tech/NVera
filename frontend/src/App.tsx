@@ -1,6 +1,27 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { RotatingCube, WireframeCity, Particles } from "./components/Hero3D";
 import Finder from "./components/Finder";
+import Studio, { type StudioIncoming } from "./components/Studio";
+import type { FindResult } from "./lib/api";
+
+/** Rough real size of a found model, from the size setting of its search (meters). */
+const SIZE_GUESS = { small: 1.5, medium: 6, large: 18 } as const;
+
+function toStudio(result: FindResult): StudioIncoming {
+  return {
+    size_m: SIZE_GUESS[result.settings.space_size] ?? 2,
+    result: {
+      name: result.model.name,
+      model: {
+        id: result.model.id, name: result.model.name, author: result.model.author, author_url: result.model.author_url,
+        license: result.model.license, url: result.model.url, source_label: result.model.source_label, size_mb: result.model.size_mb,
+      },
+      glb_path: result.glb_path ?? "",
+      score: result.quality.score,
+      reason: result.quality.reason,
+    },
+  };
+}
 
 /* ------------------------------------------------------------------ */
 /* Icons                                                               */
@@ -188,10 +209,18 @@ function Footer() {
 /* ------------------------------------------------------------------ */
 
 export default function App() {
-  const [page, setPage] = useState<"home" | "finder">("home");
+  const [page, setPage] = useState<"home" | "finder" | "studio">("home");
+  const [inbox, setInbox] = useState<StudioIncoming[]>([]);
+  const clearInbox = useCallback(() => setInbox([]), []);
 
+  if (page === "studio") {
+    return <Studio onBack={() => setPage("finder")} incoming={inbox} onIncomingUsed={clearInbox} />;
+  }
   if (page === "finder") {
-    return <Finder onBack={() => setPage("home")} />;
+    return (
+      <Finder onBack={() => setPage("home")} onStudio={() => setPage("studio")}
+        onAddToStudio={(result) => { if (result.glb_path) { setInbox((list) => [...list, toStudio(result)]); setPage("studio"); } }} />
+    );
   }
 
   return (

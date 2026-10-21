@@ -12,6 +12,7 @@ import { ToneMappingMode } from "postprocessing";
 import { clone as cloneSkinned } from "three/examples/jsm/utils/SkeletonUtils.js";
 import { applyRestyle, groundMaterial, LIGHTS, type Restyle } from "../lib/restyle";
 import { exportGlb } from "../lib/exportGlb";
+import { withSpecGloss } from "../lib/specGloss";
 
 /** Every model is scaled to about this size, so lights, shadows and fog behave the same. */
 const TARGET = 10;
@@ -33,7 +34,7 @@ interface Loaded {
 // Model
 
 function Model({ url, restyle, onLoaded }: { url: string; restyle: Restyle; onLoaded: (l: Loaded) => void }) {
-  const { scene } = useGLTF(url);
+  const { scene } = useGLTF(url, undefined, undefined, withSpecGloss);
 
   const loaded = useMemo<Loaded>(() => {
     const object = cloneSkinned(scene);  // the loader caches `scene`; never mutate the shared one
@@ -73,7 +74,7 @@ function Ground({ restyle, size, meshRef }: {
 
 // Lights & environment (procedural - nothing is downloaded)
 
-function Lights({ restyle }: { restyle: Restyle }) {
+export function Lights({ restyle }: { restyle: Restyle }) {
   const l = LIGHTS[restyle.lighting];
   const elev = THREE.MathUtils.degToRad(l.elev);
   return (
