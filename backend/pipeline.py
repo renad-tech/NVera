@@ -256,7 +256,7 @@ def _download_first(
 ) -> Iterator[dict]:
     """Download the first model in `ranked` that works; fall back down the list."""
     last_error = ""
-    for pick in ranked:
+    for i, pick in enumerate(ranked):
         size = f" ({pick['size'] / 1e6:.0f} MB)" if pick.get("size") else ""
         yield step("download", f"Downloading {pick['name']} from {SOURCE_LABELS[pick['source']]}{size}")
         t0 = time.time()
@@ -273,7 +273,12 @@ def _download_first(
                 "seconds": round(time.time() - t0, 1), "usd": 0, "tavily_credits": 0,
             })
             scene["trace"]["total_seconds"] = round(sum(x["seconds"] for x in scene["trace"]["steps"]), 1)
-        yield {"type": "result", "data": result_payload(prompt, settings, scene, pick, path.stat().st_size, usage)}
+        data = result_payload(prompt, settings, scene, pick, path.stat().st_size, usage)
+        # The models ranked below this one, in case the viewer can't display it (e.g. a broken rig):
+        # the page can then ask for the next one with no new search or AI calls.
+        rest = ranked[i + 1:]
+        data["next_job_id"] = _remember_job(prompt, settings, scene, rest) if rest else None
+        yield {"type": "result", "data": data}
         return
     yield {"type": "error", "message": f"Found models, but none could be downloaded ({last_error})."}
 
