@@ -146,3 +146,40 @@ def test_daily_caps_stop_searches(live, monkeypatch):
     monkeypatch.setattr(guard.budget, "searches_today", lambda: config.DAILY_SEARCHES)
     with pytest.raises(HTTPException):
         guard.guard_paid(_request())
+
+
+# Scene Mode
+
+def test_scene_plan_is_clamped_to_something_the_browser_can_trust():
+    from backend import scene_builder
+    raw = {
+        "title": "Park", "area_m": 500,  # too big -> 40
+        "restyle": {"material": "plastic", "lighting": "sunset"},  # unknown material -> original
+        "items": [
+            {"name": "bench", "query": "park bench", "size_m": 2,
+             "placements": [{"x": 999, "z": -999, "rot": 45}]},  # pushed back inside the ground
+            {"name": "", "query": ""},  # dropped
+        ] + [{"name": f"tree {i}", "query": "tree", "size_m": 5,
+              "placements": [{"x": 0, "z": 0, "rot": 0}] * 5} for i in range(5)],
+    }
+    plan = scene_builder.normalize_plan(raw, "a park")
+    assert plan["area_m"] == 40
+    assert plan["restyle"]["material"] == "original" and plan["restyle"]["lighting"] == "sunset"
+    assert plan["items"][0]["placements"][0] == {"x": 19.0, "z": -19.0, "rot": 45.0}
+    assert sum(len(it["placements"]) for it in plan["items"]) <= scene_builder.MAX_PLACEMENTS
+    assert len(plan["items"]) <= scene_builder.MAX_ITEMS
+
+
+def test_scene_endpoints_in_mock_mode():
+    client = TestClient(app)
+    plan = client.post("/api/scene/plan", json={"prompt": "a small park"}).json()
+    assert plan["items"] and plan["area_m"] > 0
+    assert client.post("/api/scene/plan", json={"prompt": "x"}).status_code == 422
+
+
+def test_a_scene_plan_counts_as_a_search(live, monkeypatch):
+    monkeypatch.setattr(config, "SEARCHES_PER_HOUR", 1)
+    req = Request({"type": "http", "method": "POST", "path": "/api/scene/plan", "headers": [], "client": ("9.9.9.9", 1)})
+    guard.guard_paid(req)
+    with pytest.raises(HTTPException):
+        guard.guard_paid(req)
