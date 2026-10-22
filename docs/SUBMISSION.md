@@ -5,126 +5,71 @@
 - Track: Best Apps and Agents (also entering the Tavily prize)
 - Demo: https://nvera.onrender.com (open to everyone, no sign-up)
 - Code: https://github.com/renad-tech/NVera (MIT)
+- Video: https://youtu.be/b8IXjODB0S4
 - New project: yes, started during the submission period (September 2026)
 
 ## Inspiration
-
-Anyone who has made a small game or a quick prototype knows this: you need a 3D model of something
-ordinary, a café, a desert fort, an office, and you spend an hour going through five sites. Half of
-the good-looking results turn out to be empty shells, some can't be downloaded, and the license is
-somewhere you have to go looking for. The models exist. Finding the right one is the slow part.
-
-Text-to-3D generation is getting better, but for a game or a prototype you usually still want a real,
-finished model. So I built something that finds instead of generating.
-
-The name: NV for NVIDIA, N for Nebius, era for the new era of open models, and vera from the Latin
-verus, "true". The model you get should really be what you asked for, not just something with a
-matching title.
+I love video games and I watch a lot of videos about how the games I like are made and it's so fun and inspiring. I noticed that designing the game environments takes a really long time so I researched why there's no AI that can generate a full 3D environment and I found that the tools today only make one object at a time and it usually needs a lot of fixing. So I thought if I can't generate it yet I can at least make the job easier because there are already millions of free high quality 3D models out there and the hard part is finding the right one and that's what NVera does
 
 ## What it does
+You just type what you need in English or Arabic like "a cozy café with wooden tables and plants" and NVera looks up what the real thing looks like then searches free 3D libraries like Poly Haven, Sketchfab, Poly Pizza and the Smithsonian at once and compares every model with real photos and gives you an honest score. You can also change the style like "make it cardboard at sunset" and download it for free with the creator and license inside the file.
+NVera never trusts a model's title. every pick is checked against real photos, and you can see exactly why it won.
 
-You describe a scene in English or Arabic and check three settings: scene size, colored or
-monochrome, and optional reference pictures. Then NVera:
+And with NVera Studio you can build a whole scene from one sentence. Nemotron plans every object with its real size and place, NVera finds a free model for each one, you can move, turn and resize everything and give the whole scene one look, then download it with one credits file for every creator.
 
-1. Splits the request into what to find (the shape) and how it should look (material, colors, light).
-   "A city made of cardboard" becomes: find a city, apply cardboard.
-2. Uses Tavily to look up what the real thing looks like, photos and a short description.
-3. Searches Poly Haven, Sketchfab (downloaded through Objaverse), Poly Pizza, the Smithsonian,
-   three.js examples and the open web in parallel.
-4. Has a vision model compare every candidate's preview with the real photos.
-5. Picks the best one and shows an honest score, a checklist of what it has and what's missing, and a
-   "How NVera decided" panel with every step, model, time and cost.
-6. Lets you restyle it with presets or by asking ("cardboard at sunset"), then download a GLB with
-   the creator and license written into the file.
+## How I built it
+All the AI runs on Nebius Token Factory with NVIDIA Nemotron, where 3 Ultra understands the request and plans the Studio scenes, 3.5 Super VL is the judge that looks at the images, 3 Super makes the final pick and 3 Nano does the style edits. Kimi K2.6 is only a backup judge now. Tavily finds real photos and searches the libraries, and a full search costs about half a cent.
+tavily is used three ways: real photos to judge every model, one search across the 3D libraries, and pulling direct .glb links from the web.
 
-It remembers 👍/👎 ratings and uses them on similar searches later, and it searches again with broader
-words when the first results are weak.
+## How each model works:
+- nemotron 3 ultra reads the request and splits it into what to find (the shape) and how it should look (the style). "a city made of cardboard" becomes: find a city, then make it cardboard.
+- tavily searches the web for real photos and facts about it.
+- the free 3D libraries are searched at the same time: poly haven, sketchfab, poly pizza, the smithsonian.
+- nemotron 3.5 super vl looks at up to 9 model previews next to the real photos in one call, and scores how well each one matches.
+- nemotron 3 super makes the final pick from the judge's shortlist and writes the honest score and checklist.
+- nemotron 3 nano edits the look when you ask, for about a hundredth of a cent.
+- in the studio, nemotron 3 ultra plans the scene: which objects, their real size in meters, where they stand and which way they face.
 
-## Who it's for
+## Challenges I ran into
+At first it gave an empty room 9/10 just because the name matched so I added real photos and a vision judge to fix it. Also "a cardboard city" doesn't exist as a model so I made it find a city first and then turn it into cardboard. And Sketchfab doesn't let apps download with my account so I added other free sources and put Sketchfab last and if the best model is on Sketchfab NVera shows it with a button that takes you to Sketchfab so you can log in and download it from there.
+When I moved the judge to Nemotron VL I found it only accepts 8 images at once and NVera sends up to 12, so now NVera puts all the previews in one numbered grid image and the judge reads every tile.
 
-Indie game developers and game-jam teams, students working on game design, architecture or interior
-projects, teachers and anyone prototyping who needs a decent 3D model in a minute instead of an hour.
-It also works for people who'd rather search in Arabic.
+## Accomplishments that I'm proud of
+I'm really proud that my idea turned out exactly how I imagined it and when it finally worked I showed it to my whole family haha. I'm also proud that it's honest and tells you what's missing instead of pretending the result is perfect and it works in Arabic and anyone can try it for free with limits so nobody can use up my credits.
+I also tested it for real: 30 requests where I marked the results without knowing which method picked what. a plain title search picked the right model 63% of the time, NVera 83%.
 
-## How we built it
+## What I learned
+Good results come from the system around the AI not just from a bigger model and being new to coding doesn't have to limit your ideas
 
-Everything AI runs on Nebius Token Factory through its OpenAI-compatible API, and all of the text
-reasoning and the image judging run on NVIDIA Nemotron models:
+## Small things i'm proud of:
+- shape and style are separate. there's no "cardboard city" model online, so NVera finds a city and makes it cardboard itself, right in the browser, without generating anything.
+- the creator and license are written inside every downloaded file, so the credit never gets lost.
+- your ratings teach it. a liked or disliked result is shown to the models next time someone asks for something similar.
+- if the best result scores under 6/10, it searches again with broader words before giving up.
+- every step has a backup model, so one model being down never breaks a search.
+- turning "thinking" off for the judge cut a search from $0.037 to under 1 cent, with the same quality.
+- you can type in arabic, and nemotron turns it into english search words.
+- you can open "how NVera decided" and see every model, how long it took and what it cost.
+- 14 offline tests check the search, the judge's backup, the ratings and the rate limits.
 
-- Nemotron 3 Ultra analyzes the request. It's the step that needs the most reasoning, and the rest of
-  the pipeline depends on its search terms and checklist.
-- Nemotron 3 Super makes the final pick from the vision judge's shortlist (Hermes 4 as fallback).
-- Nemotron 3 Nano handles look edits. It's about 16x cheaper than Ultra, so an edit costs around
-  $0.0001, with Ultra as fallback.
-- Nemotron 3.5 Super VL is the vision judge, since that step needs to see images. It compares all
-  candidates in one call, with Kimi K2.6 as backup. (Kimi was the judge until Oct 21, which is what
-  the video shows; Nemotron VL does the same job about 3x cheaper.)
-
-Tavily is used three ways: research with images and an answer to ground the judge, one natural-language
-search across Sketchfab, Poly Pizza, Poly Haven and OpenGameArt, and Search plus Extract on the open web
-to pull direct .glb links out of pages.
-
-The backend is FastAPI and streams progress to the UI. The frontend is React, Vite and Tailwind (the
-design started in Figma Make) with a react-three-fiber viewer: isometric camera, studio lighting,
-contact shadows, bloom, and procedural materials drawn in the browser. Edited models are exported with
-three.js's GLTFExporter. Each AI step's instructions are a markdown file in backend/prompts.
-
-I'm still a beginner at programming, but that didn't stop me from building this. I used Claude Code
-(Anthropic's AI coding assistant) as my partner. I came up with the idea, did the research, planned
-the whole system, split it into steps, chose the models and sources, and decided how every
-part should behave. I also tested it and kept pushing it until the results were actually good. Claude
-wrote most of the code, especially the backend, and helped me prepare the GitHub files.
-
-## Making it reliable
-
-Nebius's Agents Blueprint argues that most agent failures are system failures: reliability, cost and
-observability. I ran into all three while building it, and this is what I did about them:
-
-- Reliability: every step has a fallback. Nano falls back to Ultra, Super to Hermes, a failed download
-  to the next model, a weak first round (under 6/10) to a second search, and a view-only Sketchfab
-  result to the best editable one.
-- Cost: every call is priced per model and logged. The UI shows roughly how many searches are left,
-  and a public deployment has a daily budget cap and a per-visitor limit. A search is usually $0.01 to
-  $0.03. Models over 50 MB ask before downloading, and picking a smaller one doesn't re-run any AI.
-- Observability: the "How NVera decided" panel shows what happened in each search, and everything is
-  logged.
-
-## Challenges
-
-- The first version gave an empty room 9/10 because its name matched. Adding a vision judge, and later
-  real photos from Tavily, fixed that.
-- Kimi K2.6 thinks by default and once spent its whole token budget without answering. Turning thinking
-  off for ranking took a search from $0.037 to about $0.008.
-- "A cardboard city" isn't a model anyone has uploaded. Separating shape from look turned a 4/10 result
-  into a real answer.
-- Sketchfab's API terms require downloads to go through the user's own login, so I switched to
-  Objaverse (Allen AI's public copy of CC-licensed Sketchfab models) and Sketchfab's own embed viewer.
-
-## What we learned
-
-Most of the quality came from the system around the models, not from swapping models: what the judge
-gets to see, what counts as a failure, and when to try again.
-
-## What's next
-
-Sketchfab login (OAuth) so Sketchfab downloads work for everyone, combining several found models into
-one scene, and moving the deployment to Nebius Serverless Endpoints.
+## What's next for NVera
+next i want NVera to go where game developers already work. a blender or unity plugin where you describe a scene and the model drops straight into your project, no downloading and importing.
+i also want the studio to grow: bigger worlds like whole villages and levels, and saving scenes to share with your team.
+and sketchfab login so sketchfab downloads work for everyone.
 
 ## Feedback on Token Factory and NVIDIA models
 
-What worked well:
-- One OpenAI-compatible endpoint for several open models made it easy to give each step the right
-  model and change it from .env.
-- The Nemotron 3 lineup covered every text job: Ultra for the analysis, Super for the decision, Nano
-  for quick edits.
-- /v1/models?verbose=true with per-model prices is great. I built the cost tracking on it.
-- JSON mode was reliable with Nemotron and Hermes.
-- Nemotron 3 Ultra handled Arabic requests and returned clean English search terms without extra prompting.
+what worked well:
+- one openai-compatible endpoint for many open models made it easy to give every step the right model and switch it in .env
+- the nemotron family covered every job: ultra for planning and analysis, super for the final pick, nano for quick edits, and 3.5 super vl for judging images
+- moving the image judge from kimi k2.6 to nemotron 3.5 super vl cut its cost about 3x with the same quality in my tests
+- /v1/models?verbose=true with prices per model is great, i built all my cost tracking on it
+- json mode was reliable with nemotron
+- nemotron 3 ultra understood arabic requests and returned clean english search words without extra prompting
 
-What could be better:
-- deepseek-ai/DeepSeek-R1-0528 started returning 404 "model does not exist" without notice. Deprecation
-  dates in /v1/models, or aliases to newer models, would help.
-- There's no endpoint for remaining credit or spend, so I estimate it from my own logs.
-- Turning "thinking" off differs between models. A documented switch, and capability flags in
-  /v1/models (thinking, vision, JSON mode), would save time.
-- A per-request cost header would make cost tracking exact.
+what could be better:
+- nemotron 3.5 super vl accepts at most 8 images per request, and i only found out from a 400 error during a real search. putting limits like this in /v1/models (max images, context size, vision yes/no) would save time
+- turning "thinking" off works differently between models (thinking vs enable_thinking). one documented switch for all models would help
+- there's no endpoint for remaining credit or spend, so i had to estimate it from my own logs
+- deepseek-r1-0528 started returning 404 without notice. deprecation dates or aliases in /v1/models would help
+- a cost header on each response would make cost tracking exact
