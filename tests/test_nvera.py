@@ -78,6 +78,20 @@ def test_relevant_models_beat_popular_unrelated_ones():
 
 # The vision judge (NVIDIA first, Kimi as backup)
 
+def test_nemotron_vl_is_the_judge_and_the_backup_is_never_called(monkeypatch):
+    asked = []
+
+    def fake_ask(model, content, usage):
+        asked.append(model)
+        return [{"id": "C1", "score": 7, "has": [], "missing": [], "reason": "ok"}]
+
+    monkeypatch.setattr(vision_judge, "_ask", fake_ask)
+    usage = Usage()
+    vision_judge.rank("chair", SearchSettings(), [], "", [candidate("1", "A")], usage)
+    assert config.JUDGE_MODEL == "nvidia/Nemotron-3.5-Super-VL"
+    assert asked == [config.JUDGE_MODEL] and usage.judge_model == config.JUDGE_MODEL
+
+
 def test_vision_judge_falls_back_when_the_first_model_fails(monkeypatch):
     asked = []
 
