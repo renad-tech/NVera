@@ -72,7 +72,7 @@ A search result can also be sent to the Studio with "Add to Studio". A scene cos
 request -> Nemotron 3 Ultra   split into what to find (shape) and how it should look (restyle)
         -> Tavily             real-world photos and facts about the subject
         -> sources            Poly Haven, Sketchfab/Objaverse, Poly Pizza, Smithsonian, three.js, web
-        -> Nemotron 3.5 Super VL  compares up to 9 previews with the real photos (Kimi K2.6 as backup)
+        -> Nemotron 3.5 Super VL  the judge: compares every preview (one numbered grid) with the real photos
         -> Nemotron 3 Super   final pick and score
         -> download           GLB cached in models/, falls back to the next model if it fails
 ```
@@ -97,10 +97,14 @@ Nemotron model, picked by how hard each job is:
 | Scene analysis | `nvidia/Nemotron-3-Ultra-550b-a55b` | The one step that needs real reasoning, and everything after it depends on it |
 | Final pick | `nvidia/nemotron-3-super-120b-a12b` (Hermes 4 as fallback) | Short decision over the judge's shortlist, about 3x cheaper than Ultra |
 | Look edits | `nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B` (Ultra as fallback) | Quick structured edits, about 16x cheaper than Ultra |
-| Vision judge | `nvidia/Nemotron-3.5-Super-VL` (Kimi K2.6 as fallback) | Sees the images. About 3x cheaper than Kimi, which judged until Oct 21 |
+| Vision judge | `nvidia/Nemotron-3.5-Super-VL` | Sees the images and scores every candidate |
+
+Each step also has a backup that only runs if its main model is down or returns an unreadable answer.
+For the judge that backup is Kimi K2.6, the only non-NVIDIA model in NVera. It never judges when
+Nemotron VL answers, and "How NVera decided" shows which model judged each search.
 
 Swapping a model is one line in `.env`. Prices come from `/v1/models?verbose=true`, which is how
-the app tracks cost per search (usually $0.01 to $0.03) and shows how many searches are left.
+the app tracks cost per search (about half a cent) and shows how many searches are left.
 
 ### Tavily
 
