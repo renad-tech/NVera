@@ -18,14 +18,14 @@ NVera never trusts a model's title. every pick is checked against real photos, a
 And with NVera Studio you can build a whole scene from one sentence. Nemotron plans every object with its real size and place, NVera finds a free model for each one, you can move, turn and resize everything and give the whole scene one look, then download it with one credits file for every creator.
 
 ## How I built it
-All the AI runs on Nebius Token Factory with NVIDIA Nemotron, where 3 Ultra understands the request and plans the Studio scenes, 3.5 Super VL is the judge that looks at the images, 3 Super makes the final pick and 3 Nano does the style edits. Kimi K2.6 is only a backup judge now. Tavily finds real photos and searches the libraries, and a full search costs about half a cent.
+All the AI runs on Nebius Token Factory with NVIDIA Nemotron, where 3 Ultra understands the request and plans the Studio scenes, 3.5 Super VL is the judge that looks at the images, 3 Super makes the final pick and 3 Nano does the style edits. Tavily finds real photos and searches the libraries, and a full search costs about half a cent.
 tavily is used three ways: real photos to judge every model, one search across the 3D libraries, and pulling direct .glb links from the web.
 
 ## How each model works:
 - nemotron 3 ultra reads the request and splits it into what to find (the shape) and how it should look (the style). "a city made of cardboard" becomes: find a city, then make it cardboard.
 - tavily searches the web for real photos and facts about it.
 - the free 3D libraries are searched at the same time: poly haven, sketchfab, poly pizza, the smithsonian.
-- nemotron 3.5 super vl looks at up to 9 model previews next to the real photos in one call, and scores how well each one matches.
+- nemotron 3.5 super vl looks at all the model previews in one numbered grid next to the real photos, and scores how well each one matches.
 - nemotron 3 super makes the final pick from the judge's shortlist and writes the honest score and checklist.
 - nemotron 3 nano edits the look when you ask, for about a hundredth of a cent.
 - in the studio, nemotron 3 ultra plans the scene: which objects, their real size in meters, where they stand and which way they face.
@@ -50,7 +50,7 @@ Good results come from the system around the AI not just from a bigger model and
 - turning "thinking" off for the judge cut a search from $0.037 to under 1 cent, with the same quality.
 - you can type in arabic, and nemotron turns it into english search words.
 - you can open "how NVera decided" and see every model, how long it took and what it cost.
-- 14 offline tests check the search, the judge's backup, the ratings and the rate limits.
+- 15 offline tests check the search, the judge's backup, the ratings and the rate limits.
 
 ## What's next for NVera
 next i want NVera to go where game developers already work. a blender or unity plugin where you describe a scene and the model drops straight into your project, no downloading and importing.
@@ -62,7 +62,7 @@ and sketchfab login so sketchfab downloads work for everyone.
 what worked well:
 - one openai-compatible endpoint for many open models made it easy to give every step the right model and switch it in .env
 - the nemotron family covered every job: ultra for planning and analysis, super for the final pick, nano for quick edits, and 3.5 super vl for judging images
-- moving the image judge from kimi k2.6 to nemotron 3.5 super vl cut its cost about 3x with the same quality in my tests
+- moving the image judge to nemotron 3.5 super vl cut its cost about 3x with the same quality in my tests
 - /v1/models?verbose=true with prices per model is great, i built all my cost tracking on it
 - json mode was reliable with nemotron
 - nemotron 3 ultra understood arabic requests and returned clean english search words without extra prompting
