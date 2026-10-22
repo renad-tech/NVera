@@ -2,8 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import ModelViewer, { type ViewerHandle } from "./ModelViewer";
 import { GROUNDS, MATERIALS, isOriginal, type Restyle } from "../lib/restyle";
 import {
-  findModel, confirmDownload, downloadModel, getUsage, modelUrl, restyleModel, sendFeedback,
-  DEFAULT_SETTINGS, MAX_REFERENCE_IMAGES, type Choice, type SearchTrace, type TavilyResearch, type UsageStatus,
+  findModel, confirmDownload, downloadModel, modelUrl, restyleModel, sendFeedback,
+  DEFAULT_SETTINGS, MAX_REFERENCE_IMAGES, type Choice, type SearchTrace, type TavilyResearch,
   type ConfirmRequest, type FindResult, type Outcome, type SearchSettings, type StepName,
 } from "../lib/api";
 
@@ -321,7 +321,7 @@ function ViewOnlyActions({ result, onAlternative }: { result: FindResult; onAlte
 }
 
 /** 👍/👎 - NVera remembers it and uses it on similar future searches. */
-function FeedbackRow({ searchId, onSent }: { searchId: string; onSent: () => void }) {
+function FeedbackRow({ searchId }: { searchId: string }) {
   const [rating, setRating] = useState<"up" | "down" | null>(null);
   const [note, setNote] = useState("");
   const [sent, setSent] = useState(false);
@@ -330,7 +330,6 @@ function FeedbackRow({ searchId, onSent }: { searchId: string; onSent: () => voi
     try {
       await sendFeedback(searchId, r, text);
       setSent(true);
-      onSent();
     } catch {
       setSent(false);
     }
@@ -473,9 +472,8 @@ function LookEditor({ result, restyle, setRestyle }: {
   );
 }
 
-function ResultCard({ result, onFeedback, onAlternative, onAddToStudio, onEmpty }: {
+function ResultCard({ result, onAlternative, onAddToStudio, onEmpty }: {
   result: FindResult;
-  onFeedback: () => void;
   onAlternative: (jobId: string) => void;
   onAddToStudio: (result: FindResult) => void;
   onEmpty: () => void;
@@ -593,7 +591,7 @@ function ResultCard({ result, onFeedback, onAlternative, onAddToStudio, onEmpty 
 
           {result.scene.trace && <TracePanel trace={result.scene.trace} cost={result.cost} />}
 
-          {!result.mock && <FeedbackRow searchId={result.search_id} onSent={onFeedback} />}
+          {!result.mock && <FeedbackRow searchId={result.search_id} />}
 
           {viewOnly && <ViewOnlyActions result={result} onAlternative={onAlternative} />}
 
@@ -683,10 +681,9 @@ function ConfirmCard({ req, onAnswer }: {
   );
 }
 
-function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio, onEmpty }: {
+function AssistantMsg({ msg, onAnswer, onAlternative, onAddToStudio, onEmpty }: {
   msg: Msg;
   onAnswer: (jobId: string, accept: boolean) => void;
-  onFeedback: () => void;
   onAlternative: (jobId: string) => void;
   onAddToStudio: (result: FindResult) => void;
   onEmpty: () => void;
@@ -710,7 +707,7 @@ function AssistantMsg({ msg, onAnswer, onFeedback, onAlternative, onAddToStudio,
               {msg.notice}
             </p>
           )}
-          <ResultCard key={msg.result.search_id} result={msg.result} onFeedback={onFeedback} onAlternative={onAlternative}
+          <ResultCard key={msg.result.search_id} result={msg.result} onAlternative={onAlternative}
             onAddToStudio={onAddToStudio} onEmpty={onEmpty} />
         </div>
       ) : null}
@@ -850,38 +847,6 @@ function SettingsChips({ s }: { s: SearchSettings }) {
   );
 }
 
-// Budget left (header)
-
-function UsageChip({ usage }: { usage: UsageStatus }) {
-  const [open, setOpen] = useState(false);
-  const { nebius: n, tavily: t, memory: m } = usage;
-  const low = usage.searches_left < 50;
-  return (
-    <div className="relative">
-      <button onClick={() => setOpen((o) => !o)}
-        className="font-mono whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] uppercase tracking-[0.14em]"
-        style={{
-          background: low ? "rgba(255,190,80,0.10)" : "rgba(0,255,136,0.06)",
-          border: `1px solid ${low ? "rgba(255,190,80,0.3)" : "rgba(0,255,136,0.2)"}`,
-          color: low ? "#ffbe50" : "rgba(0,255,136,0.8)",
-        }}>
-        ≈ {usage.searches_left.toLocaleString()} searches left
-      </button>
-      {open && (
-        <div className="absolute right-0 top-9 z-50 w-72 space-y-2 rounded-xl p-3 text-[11px] leading-relaxed shadow-2xl"
-          style={{ background: "#0d0d0d", border: "1px solid rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.6)" }}>
-          <p><span className="text-white/85">Nebius</span> ≈ ${n.remaining_usd.toFixed(2)} of ${n.budget_usd} left
-            · ~${n.avg_search_usd.toFixed(3)}/search → ≈ {n.searches_left.toLocaleString()} searches</p>
-          {t && <p><span className="text-white/85">Tavily</span> {t.remaining.toLocaleString()} of {t.limit.toLocaleString()} credits
-            → ≈ {t.searches_left.toLocaleString()} searches</p>}
-          <p><span className="text-white/85">Memory</span> {m.searches} searches · {m.liked} 👍 · {m.disliked} 👎</p>
-          <p className="text-white/35">Nebius is NVera's own estimate from its logs — the Nebius console has the exact balance.</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
 // How to use (header help)
 
 function HowToUse({ onClose }: { onClose: () => void }) {
@@ -941,10 +906,6 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const [usage, setUsage] = useState<UsageStatus | null>(null);
-  const refreshUsage = () => { getUsage().then(setUsage); };
-  useEffect(refreshUsage, []);
-
   const busy = messages.some((m) => m.loading);
 
   const patchMsg = (id: string, p: Partial<Msg>) =>
@@ -962,8 +923,6 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
         ? "Can't reach the NVera server. Is the backend running on port 8000?"
         : (e as Error).message;
       patchMsg(id, { loading: false, confirm: undefined, error: message });
-    } finally {
-      refreshUsage();
     }
   }
 
@@ -1022,8 +981,6 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
 
           <div className="flex-1" />
 
-          {usage && <UsageChip usage={usage} />}
-
           <button onClick={() => setHelpOpen((o) => !o)} aria-label="How to use"
             className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs transition-all duration-150 hover:bg-white/[0.06]"
             style={{ color: "#00ff88" }}>
@@ -1058,7 +1015,7 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
               {messages.map((msg) =>
                 msg.role === "user"
                   ? <UserMsg      key={msg.id} text={msg.text} settings={msg.settings} />
-                  : <AssistantMsg key={msg.id} msg={msg} onFeedback={refreshUsage}
+                  : <AssistantMsg key={msg.id} msg={msg}
                       onAlternative={(jobId) => answer(msg.id, jobId, "editable")}
                       onAddToStudio={onAddToStudio}
                       onEmpty={() => showNext(msg)}
