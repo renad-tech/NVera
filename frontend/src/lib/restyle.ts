@@ -21,7 +21,7 @@ export interface Restyle {
 }
 
 export const DEFAULT_RESTYLE: Restyle = {
-  material: "original", palette: [], ground: "none", sky: "#0b0f0c",
+  material: "original", palette: [], ground: "none", sky: "#1a211d",
   lighting: "day", fog: false, bloom: false, view: "exterior",
 };
 

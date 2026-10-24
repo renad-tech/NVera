@@ -19,7 +19,7 @@ import { creditsText } from "../lib/credits";
 import { withSpecGloss } from "../lib/specGloss";
 import { modelBounds } from "../lib/fitModel";
 
-const NEON = "#00ff88";
+const NEON = "#4fd69c";
 const EXAMPLES = [
   "a cozy café at sunset with tables and plants",
   "a small park with benches, trees and a fountain",
@@ -70,7 +70,7 @@ function Chip({ active, onClick, children, title }: { active?: boolean; onClick:
 }
 
 function Label({ children }: { children: ReactNode }) {
-  return <p className="font-mono mb-2 text-[10px] uppercase tracking-[0.22em]" style={{ color: "rgba(0,255,136,0.6)" }}>{children}</p>;
+  return <p className="font-mono mb-2 text-[10px] uppercase tracking-[0.22em]" style={{ color: "rgba(79,214,156,0.6)" }}>{children}</p>;
 }
 
 function Dot({ status }: { status: Status }) {
@@ -413,7 +413,7 @@ export default function Studio({ onBack, incoming, onIncomingUsed }: {
             <textarea id="studio-prompt" value={prompt} onChange={(e) => setPrompt(e.target.value)} rows={3}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); build(prompt); } }}
               placeholder="e.g. a cozy café at sunset with tables and plants"
-              className="w-full resize-none rounded-xl bg-transparent px-3 py-2.5 text-sm text-white/90 outline-none placeholder:text-white/25 focus:border-[rgba(0,255,136,0.4)]"
+              className="w-full resize-none rounded-xl bg-transparent px-3 py-2.5 text-sm text-white/90 outline-none placeholder:text-white/25 focus:border-[rgba(79,214,156,0.4)]"
               style={{ border: "1px solid rgba(255,255,255,0.1)" }} />
             <button onClick={() => build(prompt)} disabled={planning || searching || prompt.trim().length < 2}
               className="mt-2 w-full rounded-xl px-3 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-40"

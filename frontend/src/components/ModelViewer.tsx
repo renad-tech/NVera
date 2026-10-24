@@ -102,7 +102,7 @@ function Loader() {
     <div className="pointer-events-none absolute inset-0 grid place-items-center">
       <div className="w-40">
         <div className="h-1 overflow-hidden rounded-full" style={{ background: "rgba(255,255,255,0.08)" }}>
-          <div className="h-full transition-all" style={{ width: `${progress}%`, background: "#00ff88" }} />
+          <div className="h-full transition-all" style={{ width: `${progress}%`, background: "#4fd69c" }} />
         </div>
         <p className="font-mono mt-2 text-center text-[10px] uppercase tracking-[0.2em] text-white/40">
           Loading model {Math.round(progress)}%
