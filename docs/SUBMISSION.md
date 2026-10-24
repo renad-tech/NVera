@@ -38,6 +38,13 @@ When I moved the judge to Nemotron VL I found it only accepts 8 images at once a
 I'm really proud that my idea turned out exactly how I imagined it and when it finally worked I showed it to my whole family haha. I'm also proud that it's honest and tells you what's missing instead of pretending the result is perfect and it works in Arabic and anyone can try it for free with limits so nobody can use up my credits.
 I also tested it for real: 30 requests where I marked the results without knowing which method picked what. a plain title search picked the right model 63% of the time, NVera 83%.
 
+Then I asked students at my university to try it. the 3 who tried it all rated it 5/5 for usefulness, 2 found exactly what they asked for and 1 found something close, and ease of use was 4.7/5. 2 of them said that without NVera they wouldn't even know where to look for a 3D model.
+- "A beautiful and important idea for people who own 3D printers or are into 3D printing." — Bandar, Business Administration
+- "A promising idea that helps move smart search tools forward and boosts creativity." — Rayan, Health major
+- "Really beautiful, mashallah!" — Rahaf, Health major
+
+Rahaf said the dark look was too heavy on the eyes, so I changed NVera to a softer, calmer theme.
+
 ## What I learned
 Good results come from the system around the AI not just from a bigger model and being new to coding doesn't have to limit your ideas
 
@@ -55,7 +62,7 @@ Good results come from the system around the AI not just from a bigger model and
 ## What's next for NVera
 next i want NVera to go where game developers already work. a blender or unity plugin where you describe a scene and the model drops straight into your project, no downloading and importing.
 i also want the studio to grow: bigger worlds like whole villages and levels, and saving scenes to share with your team.
-and sketchfab login so sketchfab downloads work for everyone.
+and sketchfab login so sketchfab downloads work for everyone, and a light mode for people who prefer it.
 
 ## Feedback on Token Factory and NVIDIA models
 
