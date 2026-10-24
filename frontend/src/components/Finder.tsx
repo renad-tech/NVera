@@ -1052,7 +1052,7 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
 
           <p className="font-mono mt-2 text-center text-[10px]"
             style={{ color: "rgba(255,255,255,0.16)" }}>
-            Finds existing free models, doesn't create new ones &nbsp;·&nbsp; Enter to search &nbsp;·&nbsp; Shift+Enter for new line
+            Enter to search &nbsp;·&nbsp; Shift+Enter for new line
           </p>
         </div>
       </div>
