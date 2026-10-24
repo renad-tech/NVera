@@ -17,7 +17,7 @@ DEFAULT = {
     "material": "original",
     "palette": [],
     "ground": "none",
-    "sky": "#0b0f0c",
+    "sky": "#1a211d",
     "lighting": "day",
     "fog": False,
     "bloom": False,

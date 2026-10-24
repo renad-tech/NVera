@@ -71,6 +71,6 @@ ONLY a JSON object, no prose:
 ```json
 {"subject": "main object in English", "setting": "environment in English",
  "search_query": "...", "alt_queries": ["...", "..."], "must_have": ["...", "..."],
- "restyle": {"material": "original", "palette": [], "ground": "none", "sky": "#0b0f0c",
+ "restyle": {"material": "original", "palette": [], "ground": "none", "sky": "#1a211d",
              "lighting": "day", "fog": false, "bloom": false, "view": "exterior"}}
 ```
