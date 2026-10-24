@@ -50,6 +50,23 @@ returned a castle *door*); the reverse happened 3 times, and both missed 2. Tota
 $0.13 and 60 Tavily credits. Code: [scripts/evaluate.py](scripts/evaluate.py), data and marks:
 [eval/](eval/).
 
+## What testers said
+
+Students at my university tried the live site through a short survey. All 3 who tried it rated it
+5/5 for usefulness, 2 found exactly what they asked for and 1 found something close, and ease of use
+averaged 4.7/5. Two said that without NVera they wouldn't know where to look for a 3D model.
+
+> "A beautiful and important idea for people who own 3D printers or are into 3D printing."
+> Bandar, Business Administration
+
+> "A promising idea that helps move smart search tools forward and boosts creativity."
+> Rayan, Health major
+
+> "Really beautiful, mashallah!"
+> Rahaf, Health major
+
+One tester found the dark look too heavy on the eyes, so the site now uses a softer, calmer theme.
+
 ## NVera Studio: a whole scene from one sentence
 
 Open **Studio** in the finder and describe a scene ("a small park with benches, trees and a fountain"):
