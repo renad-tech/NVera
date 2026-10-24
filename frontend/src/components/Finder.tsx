@@ -84,9 +84,17 @@ function EmptyState({ onSuggest }: { onSuggest: (s: string) => void }) {
       <h2 className="font-display mb-3 text-[2.6rem] font-black uppercase leading-none tracking-tight text-white/90">
         What world are you looking for?
       </h2>
-      <p className="mb-10 max-w-md text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.40)" }}>
+      <p className="mb-4 max-w-md text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.40)" }}>
         Describe it and NVera searches Poly Haven, Sketchfab, Poly Pizza, the Smithsonian and more,
         then AI picks the best ready-made 3D model for you.
+      </p>
+      <p className="mb-10 max-w-md rounded-lg px-4 py-2.5 text-[13px] leading-relaxed"
+        style={{ background: "rgba(79,214,156,0.06)", border: "1px solid rgba(79,214,156,0.16)", color: "rgba(255,255,255,0.70)" }}>
+        NVera finds models that already exist, it doesn't create new ones. Ask for things people
+        have made, like a castle, a car or a café.
+        <span dir="rtl" className="mt-1 block" style={{ color: "rgba(255,255,255,0.55)" }}>
+          NVera يدور على موديلات موجودة وما يصمم موديلات جديدة، فاطلب أشياء ممكن تكون موجودة مثل قلعة أو سيارة أو مقهى.
+        </span>
       </p>
 
       <div className="grid max-w-[480px] grid-cols-2 gap-2.5">
@@ -1052,7 +1060,7 @@ export default function Finder({ onBack, onStudio, onAddToStudio }: {
 
           <p className="font-mono mt-2 text-center text-[10px]"
             style={{ color: "rgba(255,255,255,0.16)" }}>
-            Enter to search &nbsp;·&nbsp; Shift+Enter for new line
+            Finds existing free models, doesn't create new ones &nbsp;·&nbsp; Enter to search &nbsp;·&nbsp; Shift+Enter for new line
           </p>
         </div>
       </div>
