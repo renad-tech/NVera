@@ -90,10 +90,9 @@ function EmptyState({ onSuggest }: { onSuggest: (s: string) => void }) {
       </p>
       <p className="mb-10 max-w-md rounded-lg px-4 py-2.5 text-[13px] leading-relaxed"
         style={{ background: "rgba(79,214,156,0.06)", border: "1px solid rgba(79,214,156,0.16)", color: "rgba(255,255,255,0.70)" }}>
-        NVera finds models that already exist, it doesn't create new ones. Ask for things people
-        have made, like a castle, a car or a café.
+        NVera finds models that already exist, it doesn't create new ones.
         <span dir="rtl" className="mt-1 block" style={{ color: "rgba(255,255,255,0.55)" }}>
-          NVera يدور على موديلات موجودة وما يصمم موديلات جديدة، فاطلب أشياء ممكن تكون موجودة مثل قلعة أو سيارة أو مقهى.
+          NVera يدور على موديلات موجودة، وما يصمم موديلات جديدة.
         </span>
       </p>
 
