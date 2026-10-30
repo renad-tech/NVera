@@ -5,7 +5,7 @@
 - Track: Best Apps and Agents (also entering the Tavily prize)
 - Demo: https://nvera.onrender.com (open to everyone, no sign-up)
 - Code: https://github.com/renad-tech/NVera (MIT)
-- Video: https://youtu.be/b8IXjODB0S4
+- Video: https://youtu.be/JvEnHQdBEJI
 - New project: yes, started during the submission period (September 2026)
 
 ## Inspiration
