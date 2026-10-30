@@ -4,6 +4,8 @@ Describe a scene, get a 3D model you can actually use.
 
 **Live demo: [nvera.onrender.com](https://nvera.onrender.com)** (open to everyone, no sign-up)
 
+**Demo video: [youtu.be/JvEnHQdBEJI](https://youtu.be/JvEnHQdBEJI)**
+
 NVera doesn't generate 3D models. There are already millions of good free ones out there, the hard
 part is finding the right one. You type what you need ("a cozy café with wooden tables and plants"),
 and an agentic AI workflow built from several models searches Poly Haven, Sketchfab, Poly Pizza, the Smithsonian and the
@@ -32,6 +34,7 @@ you get should really be what you asked for, not just something with a matching 
 - Download the edited GLB (creator and license are written into the file) or save a PNG of the view
 - Learns from 👍/👎: past ratings are fed back into similar searches
 - Searches again with broader words when the first round is weak
+- NVera Studio: one sentence becomes a whole scene you can edit and download, with credits for every creator
 
 ## Does the vision judge help? A small evaluation
 
